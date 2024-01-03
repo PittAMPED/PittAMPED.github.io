@@ -14,6 +14,20 @@
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+
+<style>
+.parent {display: block;position: relative;float: left;line-height: 30px;background-color: #4FA0D8;border-right:#CCC 1px solid;}
+.parent a{margin: 10px;color: #FFFFFF;text-decoration: none;}
+.parent:hover > ul {display:block;position:absolute;}
+.child {display: none;}
+.child li {background-color: #E4EFF7;line-height: 30px;border-bottom:#CCC 1px solid;border-right:#CCC 1px solid; width:100%;}
+.child li a{color: #000000;}
+ul{list-style: none;margin: 0;padding: 0px; min-width:10em;}
+ul ul ul{left: 100%;top: 0;margin-left:1px;}
+li:hover {background-color: #95B4CA;}
+.parent li:hover {background-color: #F0F0F0;}
+.expand{font-size:12px;float:right;margin-right:5px;}
+</style>
 </head>
 
 <body class="is-preload">
@@ -23,7 +37,7 @@
 		<header id="header">
 
 			<nav id="nav">
-				<ul>
+				<ul id="menu">
 					<li><a href="index.html">Home</a></li>
 
 					<li>
@@ -59,14 +73,21 @@
 								<ul>
 									<li><a href="Courses-and-academic-programs.html">Courses & Academic Programs </a>
 									</li>
-									<li><a href="Upcoming-events.html">AMPED Annual Industry Meeting</a></li>
-									<li><a href="NC_workshop.html">2023 Nanocrystalline Soft Magnetic Materials Workshop</a></li>
+									
 									<li><a href="AllEvents.html">Recent & Upcoming Events </a></li>
-
 								</ul>
 
 					</li>
 					<li><a href="News.html">News</a></li>
+
+					<li class="parent"> <a href="#">Past Workshops<a>
+								<ul class="child">
+								<li><a href="Upcoming-events.html">2023 AMPED Annual Industry Meeting</a></li>
+									<li><a href="NC_workshop.html">2023 Nanocrystalline Soft Magnetic Materials Workshop</a></li>
+								
+									
+							</ul>
+					</li>
 					
 					<li>
 						<a href="https://pitt.co1.qualtrics.com/jfe/form/SV_9RcynaC2nlJUAaq">Registration<a>
@@ -74,16 +95,6 @@
 				</ul>
 			</nav>
 		</header>
-		<!-- Main -->
-		<div id="main" class="wrapper style1">
-			<div class="container">
-				<header class="major">
-					<h2>2023 Nanocrystalline Soft Magnetic Materials Workshop: Advanced technologies for efficient power electronics systems agenda</h2>
-					<h3> August 16-17th, 2023 – Energy Innovation Center, Pittsburgh PA<br>
-					(all times listed Eastern Standard Time)</h3>
-
-				</header>
-
 				<!-- Content -->
 
 				<section id="content">
