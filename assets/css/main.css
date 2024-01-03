@@ -114,12 +114,27 @@ input, select, textarea {
 		color: 	#D3D3D3;
 		text-decoration: none;
 	}
-
-		a:hover {
-			color: 	#D3D3D3!important;
-			border-bottom-color: transparent;
-		}
-
+a:link {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+		
 	strong, b {
 		color: #ffffff;
 		font-weight: 300;
@@ -4131,3 +4146,29 @@ input, select, textarea {
 					}
 
 	}
+
+	<style>
+a:link {
+  color: green; 
+  background-color: transparent; 
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
