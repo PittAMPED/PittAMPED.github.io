@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "e3568bfcc4e29357",
+    "type": "split",
+    "children": [
+      {
+        "id": "98cd689f583fb816",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "91c7882a9b6cd001",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "lauren/Cast Group HOTG7/41/41 Alloy.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "41 Alloy"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c0e7d98bc656b9f4",
+    "type": "split",
+    "children": [
+      {
+        "id": "dbb0e26c80027731",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5a404caf1db6c8dc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "cad958ed697fcd69",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0dca6b2480aaee10",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d15c52a9e5e16166",
+    "type": "split",
+    "children": [
+      {
+        "id": "ac44ebe967736440",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "00296eae076278fc",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Lauren's DataBase/16/16 VSM.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 16 VSM"
+            }
+          },
+          {
+            "id": "4bc1b8f10420d631",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Lauren's DataBase/16/16 VSM.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 16 VSM"
+            }
+          },
+          {
+            "id": "62a1586d13839216",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "02411392975bee65",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Lauren's DataBase/16/16 VSM.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 16 VSM"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "5a404caf1db6c8dc",
+  "lastOpenFiles": [
+    "lauren/Cast Group HOTG7/41/41 DSC.md",
+    "lauren/Cast Group HOTG7/41/41 Mechanical.md",
+    "lauren/Cast Group HOTG7/41/41 Stress Annealing Data.md",
+    "lauren/Cast Group HOTG7/41/41 VSM.md",
+    "lauren/Cast Group HOTG7/41/41 Alloy.md",
+    "lauren/Cast Group HOTG7/42/42 Alloy.md",
+    "lauren/Cast Group HOTG7/40/40 Alloy.md",
+    "lauren/How data collect/yippeee.md",
+    "lauren/Cast Group HOTG4/20/20 Alloy.md",
+    "lauren/Cast Group HOTG2/12/12 Alloy.md",
+    "DataBase Directory/Lauren DataBase Directory.md",
+    "lauren/Cast Group HOTG5/25/25 Alloy.md",
+    "lauren/Cast Group HOTG5/25/25 Stress Annealing Data.md",
+    "DataBase Directory/AMPED LAB Database DIRECTORY.md",
+    "lauren/Cast Group HOTG5/30/30 Alloy.md",
+    "lauren/Cast Group HOTG5/30/30 Stress Annealing Data.md",
+    "lauren/Cast Group HOTG5/30/30 VSM.md",
+    "lauren/Cast Group HOTG1/6/6 Alloy.md",
+    "lauren/Cast Group HOTG1/6/6.1/6.1 Alloy.md",
+    "lauren/Cast Group HOTG1/6/6 Stress Annealing.md",
+    "lauren/Cast Group HOTG7/39/39 Alloy.md",
+    "lauren/Cast Group HOTG7/38/38 Alloy.md",
+    "lauren/Cast Group HOTG7/37/37 Alloy.md",
+    "lauren/Cast Group HOTG7/36/36 Alloy.md",
+    "lauren/Cast Group HOTG6/35/35 Alloy.md",
+    "lauren/Cast Group HOTG6/34/34 Alloy.md",
+    "deva/composition 1",
+    "deva",
+    "Lauren's DataBase/Cast Group HOTG1/7/7.1/7.1 Alloy",
+    "lauren/Cast Group HOTG5/30/30 Images/Pasted image 20250618155825.png",
+    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225412.png",
+    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225526.png",
+    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225509.png",
+    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225355.png",
+    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225159.png",
+    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225123.png",
+    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225050.png",
+    "lauren/Cast Group HOTG7/38/38 Images/Pasted image 20250618224810.png",
+    "lauren/Cast Group HOTG7/38/38 Images/Pasted image 20250618224750.png",
+    "lauren/Cast Group HOTG8/70/70 Images",
+    "lauren/Cast Group HOTG8/69/69 Images",
+    "lauren/Cast Group HOTG8/68/68 Images",
+    "lauren/Cast Group HOTG8/67/67 Images",
+    "lauren/Cast Group HOTG8/66/66 Images",
+    "lauren/Cast Group HOTG8/65/65 Images",
+    "lauren/Cast Group HOTG8/64/64 Images"
+  ]
+}
