@@ -18,12 +18,12 @@ whitelist_path = base / "pages_to_publish.txt"
 # Map folders to output HTML file + template
 folder_to_output = {
     "lauren": {
-        "filename": "nanocrystalinealloy.html",
-        "template": "templates/nano-template.html"
+        "template": base /"templates"/"nc_template.html",
+        "filename": output_dir /"Nanocrystalinealloy.html"
     },
     "deva": {
-        "filename": "ferromagneticalloy.html",
-        "template": "templates/ferro-template.html"
+       "template": base /"templates"/"fm_template.html",
+        "filename": output_dir /"Ferromagneticealloy.html"
     }
 }
 
@@ -74,8 +74,8 @@ with whitelist_path.open("r", encoding="utf-8") as f:
 
         # Step 3: Load the template and inject the content
         output_info = folder_to_output[folder]
-        template_path = base / output_info["template"]
-        out_file = output_dir / output_info["filename"]
+        template_path = output_info["template"]
+        out_file = output_info["filename"]
 
         if not template_path.exists():
             print(f"❌ Template '{template_path}' not found — skipping.")
