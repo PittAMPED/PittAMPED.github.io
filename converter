@@ -2,87 +2,114 @@ from pathlib import Path
 import markdown2
 import re
 
-# Base project folder
+# === Base directories ===
 base = Path(__file__).resolve().parent
-
-# Vault location
-input_dir = base / "vault"
-
-# Output folder for final HTML
-output_dir = base / "public" / "vault-html"
+input_dir = base / "material_database"
+output_dir = base / "public_database" / "lauren_public"
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# File listing the folders to publish
+# === Whitelist file and manual mappings ===
 whitelist_path = base / "pages_to_publish.txt"
 
-# Map folders to output HTML file + template
 folder_to_output = {
-    "lauren": {
-        "template": base /"templates"/"nc_template.html",
-        "filename": output_dir /"Nanocrystalinealloy.html"
+    "database/lauren_directory.md": {
+        "template": base / "public_database" / "lauren_public" / "nc_template.html",
+        "filename": output_dir / "nc_index.html"
     },
     "deva": {
-       "template": base /"templates"/"fm_template.html",
-        "filename": output_dir /"Ferromagneticealloy.html"
+        "template": base / "fm_template.html",
+        "filename": output_dir / "Ferromagneticealloy.html"
     }
 }
 
-# Function to clean and convert markdown to HTML
+# === Markdown processor with wiki link handling ===
 def process_markdown(content):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
 
-    # Convert Obsidian-style wiki links to HTML links
+    # Wiki links: [[Page Name|Alias]] or [[Page Name]]
     content = re.sub(
         r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]",
-        lambda m: f'<a href="{m.group(1).strip()}.html">{m.group(3) or m.group(1).strip()}</a>',
+        lambda m: f'<a href="nc_alloys/{m.group(1).strip().replace(" ", "").replace("'", "")}.html">{m.group(3) or m.group(1).strip()}</a>',
         content,
     )
 
-    # Convert Obsidian-style image embeds
+    # Image embeds: ![[image.png]]
     content = re.sub(r"!\[\[([^\]]+)\]\]", r'<img src="\1" alt="\1">', content)
 
     return markdown2.markdown(content, extras=["fenced-code-blocks", "tables", "footnotes"])
 
-
-# Step 1: Read list of folders from pages_to_publish.txt
-with whitelist_path.open("r", encoding="utf-8") as f:
-    for line in f:
-        folder = line.strip().rstrip("/")
-        if not folder or folder.startswith("#"):
-            continue
-
-        if folder not in folder_to_output:
-            print(f"⚠️ Folder '{folder}' not mapped to an output file — skipping.")
-            continue
-
-        folder_path = input_dir / folder
-        if not folder_path.is_dir():
-            print(f"❌ Folder '{folder}' not found in vault — skipping.")
-            continue
-
-        # Step 2: Read and combine all Markdown files in the folder
-        all_md = []
-        for md_file in sorted(folder_path.rglob("*.md")):
-            if md_file.name.startswith("_"):
+# === Generate index or static pages from whitelist ===
+if whitelist_path.exists():
+    with whitelist_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            item = line.strip().rstrip("/")
+            if not item or item.startswith("#"):
                 continue
-            md_content = md_file.read_text(encoding="utf-8")
-            html_piece = process_markdown(md_content)
-            all_md.append(html_piece)
 
-        combined_html = "\n\n<hr/>\n\n".join(all_md)  # Optional: add separator between notes
+            if item not in folder_to_output:
+                print(f"⚠️ Item '{item}' not mapped to an output file — skipping.")
+                continue
 
-        # Step 3: Load the template and inject the content
-        output_info = folder_to_output[folder]
-        template_path = output_info["template"]
-        out_file = output_info["filename"]
+            path = input_dir / item
+            all_md = []
 
-        if not template_path.exists():
-            print(f"❌ Template '{template_path}' not found — skipping.")
+            if path.is_file():
+                md_content = path.read_text(encoding="utf-8")
+                html_piece = process_markdown(md_content)
+                all_md.append(html_piece)
+
+            elif path.is_dir():
+                for md_file in sorted(path.rglob("*.md")):
+                    if md_file.name.startswith("_"):
+                        continue
+                    md_content = md_file.read_text(encoding="utf-8")
+                    html_piece = process_markdown(md_content)
+                    all_md.append(html_piece)
+            else:
+                print(f"❌ Path '{item}' not found in vault — skipping.")
+                continue
+
+            combined_html = "\n\n<hr/>\n\n".join(all_md)
+
+            output_info = folder_to_output[item]
+            template_path = output_info["template"]
+            out_file = output_info["filename"]
+
+            if not template_path.exists():
+                print(f"❌ Template '{template_path}' not found — skipping.")
+                continue
+
+            template = template_path.read_text(encoding="utf-8")
+            final_html = template.replace("<!-- CONTENT GOES HERE -->", combined_html)
+            out_file.write_text(final_html, encoding="utf-8")
+            print(f"✅ Created combined page: {out_file.relative_to(base)}")
+
+# === Generate pages for each material file under /lauren ===
+material_dir = input_dir / "lauren"
+material_output_dir = output_dir / "nc_alloys"
+material_output_dir.mkdir(parents=True, exist_ok=True)
+material_template = output_dir / "material_template.html"
+
+if not material_template.exists():
+    print(f"❌ Material template '{material_template}' not found — skipping material pages.")
+else:
+    for md_file in sorted(material_dir.rglob("*.md")):
+        if md_file.name.lower() == "lauren_directory.md":
+            continue
+        if md_file.name.startswith("_") or md_file.name.startswith("."):
             continue
 
-        template = template_path.read_text(encoding="utf-8")
-        final_html = template.replace("<!-- CONTENT GOES HERE -->", combined_html)
+        slug = md_file.stem.replace(" ", "").replace("'", "")
+        out_file = material_output_dir / f"{slug}.html"
+
+        md_content = md_file.read_text(encoding="utf-8")
+        html_content = process_markdown(md_content)
+        template = material_template.read_text(encoding="utf-8")
+
+        title = md_content.strip().split("\n", 1)[0].lstrip("#").strip()
+        final_html = template.replace("<!-- CONTENT GOES HERE -->", html_content)
+        final_html = final_html.replace("<!-- TITLE GOES HERE -->", title)
 
         out_file.write_text(final_html, encoding="utf-8")
-        print(f"✅ Created combined page: {out_file.relative_to(base)}")
+        print(f"✅ Created material page: {out_file.relative_to(base)}")

@@ -13,12 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "lauren/Cast Group HOTG7/41/41 Alloy.md",
+                "file": "database/lauren_directory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "41 Alloy"
+              "title": "lauren_directory"
+            }
+          },
+          {
+            "id": "db0331a5885d0071",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "lauren/Cast Group HOTG1/4/4 Alloy.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "4 Alloy"
             }
           }
         ]
@@ -78,7 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 240.50260543823242
   },
   "right": {
     "id": "d15c52a9e5e16166",
@@ -168,53 +182,53 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5a404caf1db6c8dc",
+  "active": "91c7882a9b6cd001",
   "lastOpenFiles": [
-    "lauren/Cast Group HOTG7/41/41 DSC.md",
-    "lauren/Cast Group HOTG7/41/41 Mechanical.md",
-    "lauren/Cast Group HOTG7/41/41 Stress Annealing Data.md",
-    "lauren/Cast Group HOTG7/41/41 VSM.md",
-    "lauren/Cast Group HOTG7/41/41 Alloy.md",
-    "lauren/Cast Group HOTG7/42/42 Alloy.md",
-    "lauren/Cast Group HOTG7/40/40 Alloy.md",
-    "lauren/How data collect/yippeee.md",
-    "lauren/Cast Group HOTG4/20/20 Alloy.md",
-    "lauren/Cast Group HOTG2/12/12 Alloy.md",
-    "DataBase Directory/Lauren DataBase Directory.md",
-    "lauren/Cast Group HOTG5/25/25 Alloy.md",
-    "lauren/Cast Group HOTG5/25/25 Stress Annealing Data.md",
-    "DataBase Directory/AMPED LAB Database DIRECTORY.md",
-    "lauren/Cast Group HOTG5/30/30 Alloy.md",
-    "lauren/Cast Group HOTG5/30/30 Stress Annealing Data.md",
-    "lauren/Cast Group HOTG5/30/30 VSM.md",
-    "lauren/Cast Group HOTG1/6/6 Alloy.md",
-    "lauren/Cast Group HOTG1/6/6.1/6.1 Alloy.md",
-    "lauren/Cast Group HOTG1/6/6 Stress Annealing.md",
-    "lauren/Cast Group HOTG7/39/39 Alloy.md",
-    "lauren/Cast Group HOTG7/38/38 Alloy.md",
-    "lauren/Cast Group HOTG7/37/37 Alloy.md",
-    "lauren/Cast Group HOTG7/36/36 Alloy.md",
-    "lauren/Cast Group HOTG6/35/35 Alloy.md",
-    "lauren/Cast Group HOTG6/34/34 Alloy.md",
+    "DevasDatabase.html",
+    "lauren/Cast Group HOTG1/9/9 Alloy.md",
+    "database/lauren_directory.md",
+    "lauren/Cast Group HOTG1/4/4 Alloy.md",
+    "lauren/Cast Group HOTG7/49/49 XRD.md",
+    "lauren/Cast Group HOTG1/3/🔗.md",
+    "lauren/Cast Group HOTG1/2/🔗.md",
+    "lauren/Cast Group HOTG1/1/🔗.md",
+    "lauren/Cast Group HOTG2/13/13 Alloy.md",
+    "database/lauren_directory_folder/lauren_directory.md",
+    "database/lauren_directory_folder",
+    "lauren/Cast Group HOTG8/69/69 Alloy.md",
+    "lauren/Cast Group HOTG8/68/68 VSM.md",
+    "Pasted image 20250707094014.png",
+    "lauren/Cast Group HOTG8/68/68 XRD.md",
+    "Pasted image 20250707094007.png",
+    "Pasted image 20250707093959.png",
+    "lauren/Cast Group HOTG8/68/68 Stress Annealing.md",
+    "lauren/Cast Group HOTG8/68/68 DSC.md",
+    "Pasted image 20250707093946.png",
+    "lauren/Cast Group HOTG8/68/68 Alloy.md",
+    "lauren/Cast Group HOTG8/67/67 Alloy.md",
+    "lauren/Cast Group HOTG8/67/67 DSC.md",
+    "lauren/Cast Group HOTG8/67/67 Mechanical.md",
+    "lauren/Cast Group HOTG8/67/67 Stress Annealing.md",
+    "lauren/Cast Group HOTG8/67/67 VSM.md",
+    "lauren/Cast Group HOTG8/67/67 XRD.md",
+    "Pasted image 20250707093853.png",
+    "Pasted image 20250707093846.png",
+    "Pasted image 20250707093841.png",
+    "Pasted image 20250707093824.png",
+    "lauren/Cast Group HOTG8/66/66 Alloy.md",
+    "lauren/Cast Group HOTG8/66/66 DSC.md",
+    "lauren/Cast Group HOTG8/66/66 Mechanical.md",
+    "lauren/Cast Group HOTG8/66/66 Stress Annealing.md",
+    "Pasted image 20250707093744.png",
+    "Pasted image 20250707093734.png",
     "deva/composition 1",
     "deva",
     "Lauren's DataBase/Cast Group HOTG1/7/7.1/7.1 Alloy",
-    "lauren/Cast Group HOTG5/30/30 Images/Pasted image 20250618155825.png",
-    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225412.png",
-    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225526.png",
-    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225509.png",
-    "lauren/Cast Group HOTG7/40/40 Images/Pasted image 20250618225355.png",
-    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225159.png",
-    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225123.png",
-    "lauren/Cast Group HOTG7/39/39 Images/Pasted image 20250618225050.png",
-    "lauren/Cast Group HOTG7/38/38 Images/Pasted image 20250618224810.png",
-    "lauren/Cast Group HOTG7/38/38 Images/Pasted image 20250618224750.png",
     "lauren/Cast Group HOTG8/70/70 Images",
     "lauren/Cast Group HOTG8/69/69 Images",
     "lauren/Cast Group HOTG8/68/68 Images",
     "lauren/Cast Group HOTG8/67/67 Images",
     "lauren/Cast Group HOTG8/66/66 Images",
-    "lauren/Cast Group HOTG8/65/65 Images",
-    "lauren/Cast Group HOTG8/64/64 Images"
+    "lauren/Cast Group HOTG8/65/65 Images"
   ]
 }

@@ -15,3 +15,4 @@ Peak Difference: 235.674
 Tx3 Peak: NA
 
 Experiment plot:
+![[Pasted image 20250706204946.png]]
