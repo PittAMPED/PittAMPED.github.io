@@ -1,0 +1,13 @@
+from pathlib import Path
+
+# Adjust this path to point to your 'lauren' folder
+base = Path(__file__).resolve().parent
+lauren_dir = base / "material_database" / "lauren"
+
+# Go through all markdown files in lauren subfolders
+for md_file in lauren_dir.rglob("*.md"):
+    if " " in md_file.name:
+        new_name = md_file.name.replace(" ", "").replace("'", "")
+        new_path = md_file.with_name(new_name)
+        print(f"✅ Renaming: {md_file.relative_to(base)} → {new_path.relative_to(base)}")
+        md_file.rename(new_path)
