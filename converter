@@ -27,16 +27,17 @@ def process_markdown(content):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
 
-    # Wiki links: [[Page Name|Alias]] or [[Page Name]]
+    # ✅ Fixes wiki-link format
     content = re.sub(
         r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]",
         lambda m: f'<a href="nc_alloys/{m.group(1).strip().replace(" ", "").replace("'", "")}.html">{m.group(3) or m.group(1).strip()}</a>',
         content,
     )
 
-    # Image embeds: ![[image.png]]
+    # ✅ Fixes embedded images like ![[image.png]]
     content = re.sub(r"!\[\[([^\]]+)\]\]", r'<img src="\1" alt="\1">', content)
 
+    # ✅ Converts markdown to HTML
     return markdown2.markdown(content, extras=["fenced-code-blocks", "tables", "footnotes"])
 
 # === Generate index or static pages from whitelist ===
