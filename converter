@@ -26,17 +26,29 @@ folder_to_output = {
     }
 }
 
+# === Build wiki-link lookup map ===
+wiki_link_map = {}
+material_root = input_dir / "lauren"
+for md_file in material_root.rglob("*.md"):
+    if md_file.name.startswith(('_', '.')):
+        continue
+    key = md_file.stem
+    rel_path = md_file.relative_to(material_root)
+    wiki_link_map[key] = f"nc_alloys/{rel_path.parent.as_posix()}/{slugify(key)}.html"
+
 # === Markdown processor with wiki link handling ===
 def process_markdown(content):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
 
     # Wiki-link conversion: [[1 Alloy|Alt Text]] or [[1 Alloy]]
-    content = re.sub(
-        r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]",
-        lambda m: f'<a href="{slugify(m.group(1))}.html">{m.group(3) or m.group(1).strip()}</a>',
-        content,
-    )
+    def replace_wiki_link(m):
+        target = m.group(1).strip()
+        label = m.group(3) or target
+        href = wiki_link_map.get(target, f"{slugify(target)}.html")
+        return f'<a href="{href}">{label}</a>'
+
+    content = re.sub(r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]", replace_wiki_link, content)
 
     # Embedded image handling: ![[image.png]]
     content = re.sub(r"!\[\[([^\]]+)\]\]", r'<img src="\1" alt="\1">', content)
@@ -52,7 +64,7 @@ if whitelist_path.exists():
                 continue
 
             if item not in folder_to_output:
-                print(f"\u26a0\ufe0f Item '{item}' not mapped to an output file — skipping.")
+                print(f"⚠️ Item '{item}' not mapped to an output file — skipping.")
                 continue
 
             path = input_dir / item
@@ -93,7 +105,6 @@ if whitelist_path.exists():
                 print(f"❌ Error processing '{item}': {e}")
 
 # === Generate material pages (nested folders per alloy) ===
-material_root = input_dir / "lauren"
 material_output_root = output_dir / "nc_alloys"
 material_template = base / "public_database" / "material_template.html"
 
