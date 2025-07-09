@@ -1,18 +1,18 @@
 ### Composition                 Link
 
-| Composition             | Link             |
-| ----------------------- | ---------------- |
-| Co–Fe2.5Mn2Nb4Si2B14    | [[1Alloy \| 🔗]] |
-| Co-Fe2.5Mn2Nb4Si4B12    | [[2Alloy \| 🔗]] |
-| Co-Fe2.5Mn2Nb4Si6B10    | [[3Alloy \| 🔗]] |
-| Co-Fe2.5Mn2Zr2Nb2Si2B14 |                  |
-|                         |                  |
-|                         |                  |
-|                         |                  |
-|                         |                  |
-|                         |                  |
-|                         |                  |
-|                         |                  |
+| Composition             | Link            |
+| ----------------------- | --------------- |
+| Co–Fe2.5Mn2Nb4Si2B14    | [[1Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Nb4Si4B12    | [[2Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Nb4Si6B10    | [[3Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Zr2Nb2Si2B14 |                 |
+|                         |                 |
+|                         |                 |
+|                         |                 |
+|                         |                 |
+|                         |                 |
+|                         |                 |
+|                         |                 |
 
 
 Co-Fe2.5Mn2Zr2Nb2Si2B14           [[4 Alloy]]
