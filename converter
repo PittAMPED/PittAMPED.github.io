@@ -1,20 +1,21 @@
 from pathlib import Path
+from urllib.parse import quote
 import markdown2
+import os
 import re
 
-# === Helper: Slugify filenames and wiki-links ===
+# === Helper: Slugify for clean filenames ===
 def slugify(text):
     return re.sub(r"[^\w\-]", "", text.strip().replace(" ", ""))
 
-# === Base directories ===
-base = Path(__file__).resolve().parent
+# === Define base manually if not using __file__ ===
+base = Path.cwd()
 input_dir = base / "material_database"
 output_dir = base / "public_database" / "lauren_public"
 output_dir.mkdir(parents=True, exist_ok=True)
 
-# === Whitelist file and manual mappings ===
+# === Whitelist and output mapping ===
 whitelist_path = base / "pages_to_publish.txt"
-
 folder_to_output = {
     "database/lauren_directory.md": {
         "template": base / "public_database" / "lauren_public" / "nc_template.html",
@@ -26,36 +27,49 @@ folder_to_output = {
     }
 }
 
-# === Build wiki-link lookup map ===
-wiki_link_map = {}
+# === Build lookup table for [[wiki links]] ===
 material_root = input_dir / "lauren"
-for md_file in material_root.rglob("*.md"):
-    if md_file.name.startswith(('_', '.')):
-        continue
-    key = md_file.stem
-    rel_path = md_file.relative_to(material_root)
-    wiki_link_map[key] = f"nc_alloys/{rel_path.parent.as_posix()}/{slugify(key)}.html"
+material_output_root = output_dir / "nc_alloys"
+wiki_link_map = {}  # key = slug, value = relative output path
+html_file_map = {}  # key = md file path, value = relative HTML path
 
-# === Markdown processor with wiki link handling ===
-def process_markdown(content):
+for md_file in material_root.rglob("*.md"):
+    if md_file.name.startswith(("_", ".")):
+        continue
+    key = slugify(md_file.stem)
+    rel_path = md_file.relative_to(material_root).with_suffix(".html")
+    wiki_link_map[key] = rel_path
+    html_file_map[md_file] = rel_path
+
+# === Markdown processor with wiki and image handling ===
+def process_markdown(content, current_md_path):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
 
-    # Wiki-link conversion: [[1 Alloy|Alt Text]] or [[1 Alloy]]
-    def replace_wiki_link(m):
-        target = m.group(1).strip()
-        label = m.group(3) or target
-        href = wiki_link_map.get(target, f"{slugify(target)}.html")
-        return f'<a href="{href}">{label}</a>'
+    def replace_wiki(m):
+        raw_target = m.group(1).strip()
+        label = m.group(3) or raw_target
+        target_slug = slugify(raw_target)
+        target_rel_path = wiki_link_map.get(target_slug)
 
-    content = re.sub(r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]", replace_wiki_link, content)
+        if not target_rel_path:
+            return f'<a href="#">{label}</a>'
 
-    # Embedded image handling: ![[image.png]]
+        current_rel_path = html_file_map.get(current_md_path)
+        if not current_rel_path:
+            return f'<a href="#">{label}</a>'
+
+        target_full = material_output_root / target_rel_path
+        current_full = material_output_root / current_rel_path
+
+        relative_href = os.path.relpath(target_full, start=current_full.parent).replace("\\", "/")
+        return f'<a href="{relative_href}">{label}</a>'
+
+    content = re.sub(r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]", replace_wiki, content)
     content = re.sub(r"!\[\[([^\]]+)\]\]", r'<img src="\1" alt="\1">', content)
-
     return markdown2.markdown(content, extras=["fenced-code-blocks", "tables", "footnotes"])
 
-# === Generate index/static pages from whitelist ===
+# === Generate combined index/static pages ===
 if whitelist_path.exists():
     with whitelist_path.open("r", encoding="utf-8") as f:
         for line in f:
@@ -64,7 +78,7 @@ if whitelist_path.exists():
                 continue
 
             if item not in folder_to_output:
-                print(f"⚠️ Item '{item}' not mapped to an output file — skipping.")
+                print(f"\u26a0\ufe0f Item '{item}' not mapped to an output file — skipping.")
                 continue
 
             path = input_dir / item
@@ -73,18 +87,15 @@ if whitelist_path.exists():
             try:
                 if path.is_file():
                     md_content = path.read_text(encoding="utf-8")
-                    html_piece = process_markdown(md_content)
-                    all_md.append(html_piece)
-
+                    all_md.append(process_markdown(md_content, path))
                 elif path.is_dir():
                     for md_file in sorted(path.rglob("*.md")):
                         if md_file.name.startswith(("_", ".")):
                             continue
                         md_content = md_file.read_text(encoding="utf-8")
-                        html_piece = process_markdown(md_content)
-                        all_md.append(html_piece)
+                        all_md.append(process_markdown(md_content, md_file))
                 else:
-                    print(f"❌ Path '{item}' not found in vault — skipping.")
+                    print(f"\u274c Path '{item}' not found in vault — skipping.")
                     continue
 
                 combined_html = "\n\n<hr/>\n\n".join(all_md)
@@ -93,23 +104,21 @@ if whitelist_path.exists():
                 out_file = output_info["filename"]
 
                 if not template_path.exists():
-                    print(f"❌ Template '{template_path}' not found — skipping.")
+                    print(f"\u274c Template '{template_path}' not found — skipping.")
                     continue
 
                 template = template_path.read_text(encoding="utf-8")
                 final_html = template.replace("<!-- CONTENT GOES HERE -->", combined_html)
                 out_file.write_text(final_html, encoding="utf-8")
-                print(f"✅ Created combined page: {out_file.relative_to(base)}")
+                print(f"✅ Created index/static page: {out_file.relative_to(base)}")
 
             except Exception as e:
-                print(f"❌ Error processing '{item}': {e}")
+                print(f"\u274c Error processing '{item}': {e}")
 
-# === Generate material pages (nested folders per alloy) ===
-material_output_root = output_dir / "nc_alloys"
+# === Generate individual material pages ===
 material_template = base / "public_database" / "material_template.html"
-
 if not material_template.exists():
-    print(f"❌ Material template '{material_template}' not found — skipping material pages.")
+    print(f"\u274c Material template '{material_template}' not found — skipping material pages.")
 else:
     for md_file in sorted(material_root.rglob("*.md")):
         if md_file.name.lower() == "lauren_directory.md" or not md_file.suffix == ".md":
@@ -118,14 +127,14 @@ else:
             continue
 
         try:
-            relative_path = md_file.relative_to(material_root)
-            output_path = material_output_root / relative_path.parent
+            rel_path = md_file.relative_to(material_root)
+            output_path = material_output_root / rel_path.parent
             output_path.mkdir(parents=True, exist_ok=True)
             slug = slugify(md_file.stem)
             out_file = output_path / f"{slug}.html"
 
             md_content = md_file.read_text(encoding="utf-8")
-            html_content = process_markdown(md_content)
+            html_content = process_markdown(md_content, md_file)
             template = material_template.read_text(encoding="utf-8")
 
             title = md_content.strip().split("\n", 1)[0].lstrip("#").strip()
@@ -136,4 +145,4 @@ else:
             print(f"✅ Created material page: {out_file.relative_to(base)}")
 
         except Exception as e:
-            print(f"❌ Error processing material file '{md_file}': {e}")
+            print(f"\u274c Error processing material file '{md_file}': {e}")
