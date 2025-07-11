@@ -1,0 +1,148 @@
+from pathlib import Path
+from urllib.parse import quote
+import markdown2
+import os
+import re
+
+# === Helper: Slugify for clean filenames ===
+def slugify(text):
+    return re.sub(r"[^\w\-]", "", text.strip().replace(" ", ""))
+
+# === Define base manually if not using __file__ ===
+base = Path.cwd()
+input_dir = base / "material_database"
+output_dir = base / "public_database" / "lauren_public"
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# === Whitelist and output mapping ===
+whitelist_path = base / "pages_to_publish.txt"
+folder_to_output = {
+    "database/lauren_directory.md": {
+        "template": base / "public_database" / "lauren_public" / "nc_template.html",
+        "filename": output_dir / "nc_index.html"
+    },
+    "deva": {
+        "template": base / "fm_template.html",
+        "filename": output_dir / "Ferromagneticealloy.html"
+    }
+}
+
+# === Build lookup table for [[wiki links]] ===
+material_root = input_dir / "lauren"
+material_output_root = output_dir / "nc_alloys"
+wiki_link_map = {}  # key = slug, value = relative output path
+html_file_map = {}  # key = md file path, value = relative HTML path
+
+for md_file in material_root.rglob("*.md"):
+    if md_file.name.startswith(("_", ".")):
+        continue
+    key = slugify(md_file.stem)
+    rel_path = md_file.relative_to(material_root).with_suffix(".html")
+    wiki_link_map[key] = rel_path
+    html_file_map[md_file] = rel_path
+
+# === Markdown processor with wiki and image handling ===
+def process_markdown(content, current_md_path):
+    if "<!-- PUBLISH STOP -->" in content:
+        content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
+
+    def replace_wiki(m):
+        raw_target = m.group(1).strip()
+        label = m.group(3) or raw_target
+        target_slug = slugify(raw_target)
+        target_rel_path = wiki_link_map.get(target_slug)
+
+        if not target_rel_path:
+            return f'<a href="#">{label}</a>'
+
+        current_rel_path = html_file_map.get(current_md_path)
+        if not current_rel_path:
+            return f'<a href="#">{label}</a>'
+
+        target_full = material_output_root / target_rel_path
+        current_full = material_output_root / current_rel_path
+
+        relative_href = os.path.relpath(target_full, start=current_full.parent).replace("\\", "/")
+        return f'<a href="{relative_href}">{label}</a>'
+
+    content = re.sub(r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]", replace_wiki, content)
+    content = re.sub(r"!\[\[([^\]]+)\]\]", r'<img src="\1" alt="\1">', content)
+    return markdown2.markdown(content, extras=["fenced-code-blocks", "tables", "footnotes"])
+
+# === Generate combined index/static pages ===
+if whitelist_path.exists():
+    with whitelist_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            item = line.strip().rstrip("/")
+            if not item or item.startswith("#"):
+                continue
+
+            if item not in folder_to_output:
+                print(f"\u26a0\ufe0f Item '{item}' not mapped to an output file — skipping.")
+                continue
+
+            path = input_dir / item
+            all_md = []
+
+            try:
+                if path.is_file():
+                    md_content = path.read_text(encoding="utf-8")
+                    all_md.append(process_markdown(md_content, path))
+                elif path.is_dir():
+                    for md_file in sorted(path.rglob("*.md")):
+                        if md_file.name.startswith(("_", ".")):
+                            continue
+                        md_content = md_file.read_text(encoding="utf-8")
+                        all_md.append(process_markdown(md_content, md_file))
+                else:
+                    print(f"\u274c Path '{item}' not found in vault — skipping.")
+                    continue
+
+                combined_html = "\n\n<hr/>\n\n".join(all_md)
+                output_info = folder_to_output[item]
+                template_path = output_info["template"]
+                out_file = output_info["filename"]
+
+                if not template_path.exists():
+                    print(f"\u274c Template '{template_path}' not found — skipping.")
+                    continue
+
+                template = template_path.read_text(encoding="utf-8")
+                final_html = template.replace("<!-- CONTENT GOES HERE -->", combined_html)
+                out_file.write_text(final_html, encoding="utf-8")
+                print(f"✅ Created index/static page: {out_file.relative_to(base)}")
+
+            except Exception as e:
+                print(f"\u274c Error processing '{item}': {e}")
+
+# === Generate individual material pages ===
+material_template = base / "public_database" / "material_template.html"
+if not material_template.exists():
+    print(f"\u274c Material template '{material_template}' not found — skipping material pages.")
+else:
+    for md_file in sorted(material_root.rglob("*.md")):
+        if md_file.name.lower() == "lauren_directory.md" or not md_file.suffix == ".md":
+            continue
+        if md_file.name.startswith(("_", ".")):
+            continue
+
+        try:
+            rel_path = md_file.relative_to(material_root)
+            output_path = material_output_root / rel_path.parent
+            output_path.mkdir(parents=True, exist_ok=True)
+            slug = slugify(md_file.stem)
+            out_file = output_path / f"{slug}.html"
+
+            md_content = md_file.read_text(encoding="utf-8")
+            html_content = process_markdown(md_content, md_file)
+            template = material_template.read_text(encoding="utf-8")
+
+            title = md_content.strip().split("\n", 1)[0].lstrip("#").strip()
+            final_html = template.replace("<!-- CONTENT GOES HERE -->", html_content)
+            final_html = final_html.replace("<!-- TITLE GOES HERE -->", title)
+
+            out_file.write_text(final_html, encoding="utf-8")
+            print(f"✅ Created material page: {out_file.relative_to(base)}")
+
+        except Exception as e:
+            print(f"\u274c Error processing material file '{md_file}': {e}")
