@@ -171,6 +171,7 @@
   },
   "active": "91c7882a9b6cd001",
   "lastOpenFiles": [
+<<<<<<< HEAD
     "Template Alloy/FieldAnnealing.md",
     "Template Alloy/Alloy.md",
     "lauren/HOTG7/39/39FieldAnnealing.md",
@@ -183,6 +184,19 @@
     "lauren/HOTG11/95/95DSC.md",
     "2025-07-20.md",
     "Template Alloy",
+=======
+    "lauren/HOTG1/1/1StressAnnealingData.md",
+    "lauren/HOTG1/1/1DSC.md",
+    "lauren/HOTG1/1/1 Images/Pasted image 20250618095239.png",
+    "lauren/HOTG1/1/1 Images/Pasted image 20250612121527.png",
+    "Pasted image 20250706210952.png",
+    "Pasted image 20250706214116.png",
+    "Pasted image 20250706210928.png",
+    "Pasted image 20250706210518.png",
+    "Pasted image 20250706210421.png",
+    "Pasted image 20250618214202.png",
+    "Pasted image 20250618155607.png",
+>>>>>>> 96e4c3e196efa718b3e41c6657cafdffee2da7ed
     "database/lauren_directory.md",
     "lauren/Images/Pasted image 20250728031450.png",
     "lauren/HOTG5/31/31Alloy.md",
@@ -190,6 +204,7 @@
     "lauren/HOTG8/54/54XRD.md",
     "lauren/HOTG5/25/25Alloy.md",
     "lauren/HOTG1/1/1Alloy.md",
+<<<<<<< HEAD
     "lauren/HOTG1/1/1VSM.md",
     "lauren/HOTG1/1/1Mechanical.md",
     "lauren/HOTG1/1/1StressAnnealing.md",
@@ -219,5 +234,40 @@
     "lauren/HOTG10/87",
     "lauren/HOTG10/86",
     "lauren/HOTG10/85"
+=======
+    "lauren/HOTG1/3/3Alloy.md",
+    "3Alloy.md",
+    "4 Alloy.md",
+    "lauren/HOTG1/4/4DSC.md",
+    "lauren/HOTG1/4/4Alloy.md",
+    "lauren/HOTG1/2/2Alloy.md",
+    "lauren/HOTG8/70/70StressAnnealing.md",
+    "lauren/HOTG8/70/70Alloy.md",
+    "lauren/HOTG8/70/70XRD.md",
+    "lauren/HOTG8/70/70DSC.md",
+    "lauren/HOTG8/70/70Mechanical.md",
+    "lauren/HOTG8/70/70VSM.md",
+    "lauren/HOTG8/64/64Alloy.md",
+    "lauren/HOTG8/64/64StressAnnealing.md",
+    "lauren/HOTG8/64/64DSC.md",
+    "lauren/HOTG8/64/64VSM.md",
+    "lauren/HOTG8/64/64XRD.md",
+    "lauren/HOTG8/64/64Mechanical.md",
+    "lauren/HOTG8/63/63StressAnnealing.md",
+    "lauren/HOTG8/63/63XRD.md",
+    "lauren/HOTG8/63/63DSC.md",
+    "lauren/HOTG8/63/63VSM.md",
+    "lauren/Images/Pasted image 20250617140340.png",
+    "lauren/Images",
+    "lauren/How data collect",
+    "lauren/HOTG7/45/45 Images",
+    "lauren/HOTG7/45",
+    "lauren/HOTG7/44/44 Images",
+    "lauren/HOTG7/44",
+    "lauren/HOTG7/43/43 Images",
+    "lauren/HOTG7/43",
+    "lauren/HOTG7/42/42 Images",
+    "lauren/HOTG7/42"
+>>>>>>> 96e4c3e196efa718b3e41c6657cafdffee2da7ed
   ]
 }
