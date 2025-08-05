@@ -12,9 +12,11 @@ As-Cast Saturation Polarization (VSM, 5 [kOe]): 0.874 [T]
 Crystallized Saturation Polarization: 
 Approx. Amorphous Curie Temperature: 572C
 Approx. Total Curie Temperature: 
-[[62 DSC]]
-[[62 Mechanical]]
-[[62 Stress Annealing]]
-[[62 VSM]]
-[[62 XRD]]
 
+| Additional Data                         |
+| --------------------------------------- |
+| [[62DSC\|DSC]]                          |
+| [[62Mechanical\|Mechanical]]            |
+| [[62StressAnnealing\|Stress Annealing]] |
+| [[62VSM\|VSM]]                          |
+| [[62XRD\|XRD]]                          |

@@ -8,4 +8,5 @@ Amorphous Curie temperature (°C): 606.347
 HK Parameter: 0.4599581
 M(0)/M(RT): 1.05202
 RSE: 0.0019742 
+<!-- PUBLISH STOP -->
 ![[Pasted image 20250617113523.png]]

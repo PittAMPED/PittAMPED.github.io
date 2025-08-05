@@ -13,8 +13,10 @@ Crystallized Saturation Polarization:
 Approx. Amorphous Curie Temperature: 589C
 Approx. Total Curie Temperature: 
 
-[[64 DSC]]
-[[64 Mechanical]]
-[[64 Stress Annealing]]
-[[64 VSM]]
-[[64 XRD]]
+| Additional Data                         |
+| --------------------------------------- |
+| [[64DSC\|DSC]]                          |
+| [[64Mechanical\|Mechanical]]            |
+| [[64StressAnnealing\|Stress Annealing]] |
+| [[64VSM\|VSM]]                          |
+| [[64XRD\|XRD]]                          |

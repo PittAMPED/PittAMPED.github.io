@@ -1,0 +1,103 @@
+import os
+import re
+
+def add_additional_data_table(vault_path, lauren_folder="lauren"):
+    """
+    Add Additional Data table to all Alloy markdown files in the Obsidian vault.
+    
+    Args:
+        vault_path (str): Path to your Obsidian vault root directory
+        lauren_folder (str): Name of the lauren folder (default: "lauren")
+    """
+    
+    lauren_path = os.path.join(vault_path, lauren_folder)
+    
+    if not os.path.exists(lauren_path):
+        print(f"Error: Lauren folder not found at {lauren_path}")
+        return
+    
+    # Process each HOTG folder
+    for hotg_num in range(1, 12):  # HOTG1 to HOTG11
+        hotg_folder = f"HOTG{hotg_num}"
+        hotg_path = os.path.join(lauren_path, hotg_folder)
+        
+        if not os.path.exists(hotg_path):
+            print(f"Warning: {hotg_folder} not found, skipping...")
+            continue
+            
+        print(f"Processing {hotg_folder}...")
+        
+        # Look for numbered folders (like 15, 16, 17, 18)
+        for item in os.listdir(hotg_path):
+            item_path = os.path.join(hotg_path, item)
+            
+            if os.path.isdir(item_path) and item.isdigit():
+                number_folder = item
+                
+                # Look for Alloy files in this numbered folder
+                alloy_pattern = f"{number_folder}Alloy"
+                alloy_file = f"{alloy_pattern}.md"
+                alloy_path = os.path.join(item_path, alloy_file)
+                
+                if os.path.exists(alloy_path):
+                    process_alloy_file(alloy_path, number_folder)
+                    print(f"  Updated {alloy_file}")
+                else:
+                    print(f"  Warning: {alloy_file} not found in {item_path}")
+
+def process_alloy_file(file_path, alloy_number):
+    """
+    Process a single Alloy file to add or update the Additional Data table.
+    
+    Args:
+        file_path (str): Path to the Alloy markdown file
+        alloy_number (str): The alloy number to use in the links
+    """
+    
+    # Read the current content
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+    
+    # Define the new table
+    new_table = f"""| Additional Data                                    |
+| -------------------------------------------------- |
+| [[{alloy_number}DSC\\|DSC]]                            |
+| [[{alloy_number}Mechanical\\|Mechanical]]              |
+| [[{alloy_number}StressAnnealing\\|Stress Annealing]]   |
+| [[{alloy_number}VSM\\|VSM]]                            |"""
+    
+    # Check if Additional Data table already exists
+    additional_data_pattern = r'\| Additional Data.*?\n(?:\|.*?\n)*'
+    
+    if re.search(additional_data_pattern, content, re.MULTILINE):
+        # Replace existing table
+        content = re.sub(additional_data_pattern, new_table + '\n', content, flags=re.MULTILINE)
+        print(f"    Replaced existing Additional Data table")
+    else:
+        # Add new table at the end
+        # Remove any trailing whitespace and ensure we end with a newline
+        content = content.rstrip() + '\n\n' + new_table + '\n'
+        print(f"    Added new Additional Data table")
+    
+    # Write the updated content back to the file
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(content)
+
+def main():
+    """
+    Main function to run the script.
+    Update the vault_path variable to point to your Obsidian vault.
+    """
+    
+    # UPDATE THIS PATH to point to your material_database folder
+    vault_path = "material_database"  # or "./material_database" if you prefer
+    
+    print("Starting Alloy footer update process...")
+    print(f"Vault path: {vault_path}")
+    
+    add_additional_data_table(vault_path, "lauren")
+    
+    print("Process completed!")
+
+if __name__ == "__main__":
+    main()

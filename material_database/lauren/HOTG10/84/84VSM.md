@@ -1,0 +1,10 @@
+Date Tested: 
+
+Testing conditions:
+4 stacked discs: 5.66 mg
+Measure every 15degrees
+
+Amorphous Curie temperature (°C): 
+HK Parameter:
+M(0)/M(RT): 
+RSE: 

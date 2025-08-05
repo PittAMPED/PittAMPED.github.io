@@ -12,8 +12,10 @@ As-Cast Saturation Polarization:  1.037 [T]
 Crystallized Saturation Polarization (510 °C): 0.863 [T]
 Approx. Amorphous Curie Temperature: 615C
 Approx. Total Curie Temperature: ???
- [[13 VSM]]
- [[13 DSC]]
- [[13 Mechanical]]
- [[13 Mechanical]]
- 
+
+| Additional Data                                    |
+| -------------------------------------------------- |
+| [[13DSC\|DSC]]                            |
+| [[13Mechanical\|Mechanical]]              |
+| [[13StressAnnealing\|Stress Annealing]]   |
+| [[13VSM\|VSM]]                            |

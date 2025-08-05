@@ -15,4 +15,5 @@ Peak Difference: 240.6
 Tx3 Peak: 704.22
 
 Experiment plot:
+<!-- PUBLISH STOP -->
 ![[Pasted image 20250616091939.png]]

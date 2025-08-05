@@ -12,12 +12,12 @@ As-Cast Saturation Polarization (VSM, 5 [kOe]): 0.8911 [T]**
 As-Cast Saturation Polarization (VSM, 5 [kAm]): 0.860 [T]**
 Crystallized Saturation Polarization (Brockhaus, 8 [kA/m]): 0.807 [T]
 Approx. Amorphous Curie Temperature: 591C
-Approx. Total Curie Temperature: 
- 
-[[44 DSC]]
-[[44 Mechanical]]
-[[44 Stress Annealing Data]]
-[[44 VSM]]
-[[44 XRD]]
+Approx. Total Curie Temperature:
 
-
+| Additional Data                         |
+| --------------------------------------- |
+| [[44DSC\|DSC]]                          |
+| [[44Mechanical\|Mechanical]]            |
+| [[44StressAnnealing\|Stress Annealing]] |
+| [[44VSM\|VSM]]                          |
+| [[44XRD\|XRD]]                          |

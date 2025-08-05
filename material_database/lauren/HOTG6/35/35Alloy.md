@@ -12,8 +12,10 @@ As-Cast Saturation Polarization: 0.809 [T]
 Crystallized Saturation Polarization:
 Approx. Amorphous Curie Temperature: 
 Approx. Total Curie Temperature: 
- [[35 DSC]]
- [[35 Mechanical]]
- [[35 Stress Annealing Data]]
- [[35 VSM]]
- 
+
+| Additional Data                                    |
+| -------------------------------------------------- |
+| [[35DSC\|DSC]]                            |
+| [[35Mechanical\|Mechanical]]              |
+| [[35StressAnnealing\|Stress Annealing]]   |
+| [[35VSM\|VSM]]                            |

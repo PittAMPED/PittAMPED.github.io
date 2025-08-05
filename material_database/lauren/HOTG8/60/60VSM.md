@@ -9,6 +9,7 @@ HK Parameter: 0.518
 R^2: 0.9970
 M(0)/M(RT): 1.01
 SSE: 1.187886e-03
+<!-- PUBLISH STOP -->
 ![[Pasted image 20250707091520.png]]
 
 ![[Pasted image 20250707091659.png]]

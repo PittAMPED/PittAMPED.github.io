@@ -11,5 +11,12 @@ Magnetic Properties:
 As-Cast Saturation Polarization (VSM, 5 [kOe]): 0.880 [T]
 Crystallized Saturation Polarization: 
 Approx. Amorphous Curie Temperature: 556C
-Approx. Total Curie Temperature: 
- 
+Approx. Total Curie Temperature:
+
+| Additional Data                         |
+| --------------------------------------- |
+| [[59DSC\|DSC]]                          |
+| [[59Mechanical\|Mechanical]]            |
+| [[59StressAnnealing\|Stress Annealing]] |
+| [[59VSM\|VSM]]                          |
+| [[59XRD\|XRD]]                          |

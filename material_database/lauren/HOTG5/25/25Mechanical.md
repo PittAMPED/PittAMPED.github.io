@@ -1,3 +1,9 @@
+Pinholes Data:
 
-Pinholes:
-![[Pasted image 20250618151305.png]]
+Percent Area: 3.33 %
+Number of Pinholes: 149
+<!-- PUBLISH STOP -->
+
+Also have:
+Percent Area: 5.349 %
+Number of Pinholes: 148

@@ -1,58 +1,98 @@
-### Composition                 Link
 
-| Composition             | Link            |
-| ----------------------- | --------------- |
-| Co–Fe2.5Mn2Nb4Si2B14    | [[1Alloy\| 🔗]] |
-| Co-Fe2.5Mn2Nb4Si4B12    | [[2Alloy\| 🔗]] |
-| Co-Fe2.5Mn2Nb4Si6B10    | [[3Alloy\| 🔗]] |
-| Co-Fe2.5Mn2Zr2Nb2Si2B14 |                 |
-|                         |                 |
-|                         |                 |
-|                         |                 |
-|                         |                 |
-|                         |                 |
-|                         |                 |
-|                         |                 |
-
-
-Co-Fe2.5Mn2Zr2Nb2Si2B14           [[4 Alloy]]
-Co-Fe2.5Mn2Zr2Nb2Si4B12           [[5 Alloy]]
-Co-Fe2.5Mn2Ta2Nb2Si2B14           [[6 Alloy]]
-Co-Fe2.5Mn2Ta4Si2B14                  [[7 Alloy]]
-Co-Fe2.5Mn2Nb2Si2B16                 [[8 Alloy]]
-Co-Fe2.5Mn2Nb6Si2B12                 [[9 Alloy]]
-Co-Fe2.5Mn2Nb4Si2B14Cr4          [[10 Alloy]] 
-Co75.5Fe­­­2.5Mn2Nb6­Si4B10           [[11 Alloy]]
-Co75.5Fe­­­2.5Mn2Nb6­Si6B8             [[12 Alloy]]
-Co75.5Fe­­­2.5Mn2Nb4­Si4B12           [[13 Alloy]]
-Co75.5Fe­­­2.5Mn2Nb4­Si6B10           [[14 Alloy]]
-Co75.5Fe­­­2.5Mn2Nb8­Si6B6             [[15 Alloy]]
-Co75.5Fe­­­2.5Mn2Nb8­Si4B8             [[16 Alloy]]
-Co75.5Fe­­­2.5Mn2Ta4Si8B8              [[17 Alloy]]
-Co75.5Fe­­­2.5Mn2Ta6­Si6B8              [[18 Alloy]]
-Co73.5Fe­­­2.5Mn2Nb8Si6B8             [[19 Alloy]]
-Co70.5Fe­­­7.5Mn2Nb6Si6B8             [[20 Alloy]]
-Co70.5Fe­­­5Ni2.5Mn2Nb6Si6B8       [[21 Alloy]]
-Co68Fe­­­5Ni5Mn2Nb6Si6B8             [[22 Alloy]]
-Co75.5Ni2.5Mn2Nb6Si6B8              [[23 Alloy]]
-Co70.5Fe7.5Mn2Nb8Si4B8              [[24 Alloy]]
-Co70.5Fe7.5Mn2Ta8Si4B8               [[25 Alloy]]
-Co73.5Fe­­­2.5Cr4Nb8­Si4B8               [[26 Alloy]]
-Co73.5Fe­­­2.5Cr4Ta8­Si4B8                [[27 Alloy]]
-Co73.5Fe­­­2.5Al4Nb8­Si4B8                [[28 Alloy]]
-Co73.5Fe­­­2.5Al4Ta8­Si4B8                 [[29 Alloy]]
-Co73.5Fe­­­2.5Ni4Nb6­Si4B8                [[30 Alloy]]
-Co73.5Fe­­­2.5Ni4Ta8­Si4B8                 [[31 Alloy]]
-Co66.6Fe­­­8.3Nb2.6Si16­B6.5Cu0.6   [[32 Alloy]]
-Fe­­­74Nb3Si15.5­B6.5Cu1                     [[33 Alloy]]
-Co3Fe­­­71Nb3Si15.5­B6.5Cu1              [[34 Alloy]]
-Co62.5Fe­­­12.1Nb2.6Si15.5­B6.5Cu0.8   [[35 Alloy]]
-Co75.5Ni­­­2.5Mn2Nb8Si4B8                [[36 Alloy]]
-Co75.5Ni­­­2.5Mn2Ta6Si6B8                 [[37 Alloy]]
-Co73Ni2.5Fe­­­2.5Mn2Nb8Si4B8         [[38 Alloy]]
-Co73Ni2.5Fe­­­2.5Mn2Ta6Si6B8          [[39 Alloy]]
-Co73Fe­­­5Mn2Nb6Si6B8                     [[40 Alloy]]
-
-
-
-
+| Composition                          | Link            |
+| ------------------------------------ | --------------- |
+| Co–Fe2.5Mn2Nb4Si2B14                 | [[1Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Nb4Si4B12                 | [[2Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Nb4Si6B10                 | [[3Alloy\| 🔗]] |
+| Co-Fe2.5Mn2Zr2Nb2Si2B14              | [[4Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Zr2Nb2Si4B12              | [[5Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Ta2Nb2Si2B14              | [[6Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Ta4Si2B14                 | [[7Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Nb2Si2B16                 | [[8Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Nb6Si2B12                 | [[9Alloy\|🔗]]  |
+| Co-Fe2.5Mn2Nb4Si2B14Cr4              | [[10Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb6­Si4B10          | [[11Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb6­Si6B8           | [[12Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb4­Si4B12          | [[13Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb4­Si6B10          | [[14Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb8­Si6B6           | [[15Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Nb8­Si4B8           | [[16Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Ta4Si8B8            | [[17Alloy\|🔗]] |
+| Co75.5Fe­­­2.5Mn2Ta6­Si6B8           | [[18Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Mn2Nb8Si6B8            | [[19Alloy\|🔗]] |
+| Co70.5Fe­­­7.5Mn2Nb6Si6B8            | [[20Alloy\|🔗]] |
+| Co70.5Fe­­­5Ni2.5Mn2Nb6Si6B8         | [[21Alloy\|🔗]] |
+| Co68Fe­­­5Ni5Mn2Nb6Si6B8             | [[22Alloy\|🔗]] |
+| Co75.5Ni2.5Mn2Nb6Si6B8               | [[23Alloy\|🔗]] |
+| Co70.5Fe7.5Mn2Nb8Si4B8               | [[24Alloy\|🔗]] |
+| Co70.5Fe7.5Mn2Ta8Si4B8               | [[25Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Cr4Nb8­Si4B8           | [[26Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Cr4Ta8­Si4B8           | [[27Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Al4Nb8­Si4B8           | [[28Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Al4Ta8­Si4B8           | [[29Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Ni4Nb6­Si4B8           | [[30Alloy\|🔗]] |
+| Co73.5Fe­­­2.5Ni4Ta8­Si4B8           | [[31Alloy\|🔗]] |
+| Co66.6Fe­­­8.3Nb2.6Si16­B6.5Cu0.6    | [[32Alloy\|🔗]] |
+| Fe­­­74Nb3Si15.5­B6.5Cu1             | [[33Alloy\|🔗]] |
+| Co3Fe­­­71Nb3Si15.5­B6.5Cu1          | [[34Alloy\|🔗]] |
+| Co62.5Fe­­­12.1Nb2.6Si15.5­B6.5Cu0.8 | [[35Alloy\|🔗]] |
+| Co75.5Ni­­­2.5Mn2Nb8Si4B8            | [[36Alloy\|🔗]] |
+| Co75.5Ni­­­2.5Mn2Ta6Si6B8            | [[37Alloy\|🔗]] |
+| Co73Ni2.5Fe­­­2.5Mn2Nb8Si4B8         | [[38Alloy\|🔗]] |
+| Co73Ni2.5Fe­­­2.5Mn2Ta6Si6B8         | [[39Alloy\|🔗]] |
+| Co73Fe­­­5Mn2Nb6Si6B8                | [[40Alloy\|🔗]] |
+| Co73Fe­­­5Mn2Ta6Si6B8                | [[41Alloy\|🔗]] |
+| Co73Ni5B8Si4Nb8Mn2                   | [[42Alloy\|🔗]] |
+| Co73Ni5B8Si6Ta6Mn2                   | [[43Alloy\|🔗]] |
+| Co70.5Fe5Ni2.5B8Si4Nb8Mn2            | [[44Alloy\|🔗]] |
+| Co70.5Fe5Ni2.5B8Si6Ta6Mn2            | [[45Alloy\|🔗]] |
+| Co70.5Fe2.5Ni5B8Si4Nb8Mn2            | [[46Alloy\|🔗]] |
+| Co70.5Fe2.5Ni5B8Si6Ta6Mn2            | [[47Alloy\|🔗]] |
+| Co68Fe5Ni5B8Si4Nb8Mn2                | [[48Alloy\|🔗]] |
+| Co68Fe5Ni5B8Si6Ta6Mn2                | [[49Alloy\|🔗]] |
+| Co75.5Fe2.5B8Si4Nb8                  | [[50Alloy\|🔗]] |
+|                                      | [[51Alloy\|🔗]] |
+| Co78B8Si4Nb8Mn2                      | [[52Alloy\|🔗]] |
+| Co78B8Si6Ta6Mn2                      | [[53Alloy\|🔗]] |
+| Co70.5Ni7.5B8Si4Nb8Mn2               | [[54Alloy\|🔗]] |
+| Co70.5Ni7.5B8Si6Ta6Mn2               | [[55Alloy\|🔗]] |
+| Co68Fe2.5Ni7.5B8Si4Nb8Mn2            | [[56Alloy\|🔗]] |
+| Co68Fe2.5Ni7.5B8Si6Ta6Mn2            | [[57Alloy\|🔗]] |
+| Co65.5Fe5Ni7.5B8Si4Nb8Mn2            | [[58Alloy\|🔗]] |
+| Co65.5Fe5Ni7.5B8Si6Ta6Mn2            | [[59Alloy\|🔗]] |
+| Co63Fe7.5Ni7.5B8Si4Nb8Mn2            | [[60Alloy\|🔗]] |
+| Co63Fe7.5Ni7.5B8Si6Ta6Mn2            | [[61Alloy\|🔗]] |
+| Co65.5Fe7.5Ni5B8Si4Nb8Mn2            | [[62Alloy\|🔗]] |
+| Co65.5Fe7.5Ni5B8Si6Ta6Mn2            | [[63Alloy\|🔗]] |
+| Co68Fe7.5Ni2.5B8Si4Nb8Mn2            | [[64Alloy\|🔗]] |
+| Co68Fe7.5Ni2.5B8Si6Ta6Mn2            | [[65Alloy\|🔗]] |
+| Co70.5Fe7.5B8Si6Ta6Mn2               | [[66Alloy\|🔗]] |
+| Co75Fe5B8Si4Nb8                      | [[67Alloy\|🔗]] |
+| Co75Fe5B8Si6Ta6                      | [[68Alloy\|🔗]] |
+| Co72.5Fe5Ni2.5B8Si4Nb8               | [[69Alloy\|🔗]] |
+| Co72.5Fe5Ni2.5B8Si6Ta6               | [[70Alloy\|🔗]] |
+| Co77.5Ni2.5B8Si4Nb8                  | [[71Alloy\|🔗]] |
+| Co77.5Ni2.5B8Si6Ta6                  | [[72Alloy\|🔗]] |
+| Co80B8Si4Nb8                         | [[73Alloy\|🔗]] |
+| Co80B8Si6Ta6                         | [[74Alloy\|🔗]] |
+| Co73.5Fe2.5B8Si4Nb8Mn4               | [[75Alloy\|🔗]] |
+| Co73.5Fe2.5B8Si6Ta6Mn4               | [[76Alloy\|🔗]] |
+| Co73.5Ni2.5B8Si4Nb8Mn4               | [[77Alloy\|🔗]] |
+| Co73.5Ni2.5B8Si6Ta6Mn4               | [[78Alloy\|🔗]] |
+| Co26Ni26Fe26B8Si4Nb8Mn2              | [[79Alloy\|🔗]] |
+| Co26Ni26Fe26B8Si6Ta6Mn2              | [[80Alloy\|🔗]] |
+| Co26Ni26Fe26B14Si2Nb4Mn2             | [[81Alloy\|🔗]] |
+| Fe39Ni39B8Si4Nb8Mn2                  | [[82Alloy\|🔗]] |
+| Fe39Ni39B8Si6Ta6Mn2                  | [[83Alloy\|🔗]] |
+| Fe39Ni39B14Si2Nb4Mn2                 | [[84Alloy\|🔗]] |
+| Co39Fe39B8Si4Nb8Mn2                  | [[85Alloy\|🔗]] |
+| Co39Fe39B8Si6Ta6Mn2                  | [[86Alloy\|🔗]] |
+| Co39Fe39B14Si2Nb4Mn2                 | [[87Alloy\|🔗]] |
+| Co39Ni39B8Si4Nb8Mn2                  | [[88Alloy\|🔗]] |
+| Co39Ni39B8Si6Ta6Mn2                  | [[89Alloy\|🔗]] |
+| Co39Ni39B14Si2Nb4Mn2                 | [[90Alloy\|🔗]] |
+| Co73Fe8B4Ta15                        | [[91Alloy\|🔗]] |
+| Co72Fe8B8Ta12                        | [[92Alloy\|🔗]] |
+| Co75Fe5B7Ta13                        | [[93Alloy\|🔗]] |
+| Co72Fe8Si2B6Ta12                     | [[94Alloy\|🔗]] |
+| Co73Fe7Si2B7Ta11                     | [[lauren/HOTG11/95/95Alloy\|🔗]] |

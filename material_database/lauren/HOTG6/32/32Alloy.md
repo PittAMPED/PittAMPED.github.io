@@ -13,7 +13,9 @@ Crystallized Saturation Polarization: 0.835 [T]
 Approx. Amorphous Curie Temperature: 398C
 Approx. Total Curie Temperature: 
 
-[[32 DSC]]
-[[32 VSM]]
-[[32 Stress Annealing Data]]
-[[32 Mechanical]]
+| Additional Data                                    |
+| -------------------------------------------------- |
+| [[32DSC\|DSC]]                            |
+| [[32Mechanical\|Mechanical]]              |
+| [[32StressAnnealing\|Stress Annealing]]   |
+| [[32VSM\|VSM]]                            |

@@ -12,8 +12,11 @@ As-Cast Saturation Polarization:
 Crystallized Saturation Polarization: 
 Approx. Amorphous Curie Temperature: 683C
 Approx. Total Curie Temperature: 
-[[69 DSC]]
-[[69 Mechanical]]
-[[69 Stress Annealing]]
-[[69 VSM]]
-[[69 XRD]]
+
+| Additional Data                         |
+| --------------------------------------- |
+| [[69DSC\|DSC]]                          |
+| [[69Mechanical\|Mechanical]]            |
+| [[69StressAnnealing\|Stress Annealing]] |
+| [[69VSM\|VSM]]                          |
+| [[69XRD\|XRD]]                          |

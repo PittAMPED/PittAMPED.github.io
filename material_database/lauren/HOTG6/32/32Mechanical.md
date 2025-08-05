@@ -1,2 +1,5 @@
-Pinholes:
-![[Pasted image 20250618214223.png]]
+Pinholes Data:
+
+Percent Area: 0.130 %
+Number of Pinholes: 6
+<!-- PUBLISH STOP -->

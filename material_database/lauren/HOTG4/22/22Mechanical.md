@@ -1,2 +1,6 @@
 Pinholes:
-![[Pasted image 20250617140159.png]]
+
+Percent Area: 0.185 %
+Number of Pinholes: 7
+<!-- PUBLISH STOP -->
+

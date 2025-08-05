@@ -1,16 +1,14 @@
-Nominal Composition: Co73.5Fe­­­2.5Al4Ta8­Si4B8
-Cast Group: HOTG5
-Other Designators: BMS503
- 
-Physical Properties:
-Mass Density (ingot): 9.22 [g/cm3]
-Primary Crystallization Temperature (DSC): 503.3
-Secondary Crystallization Temperature: (DSC): NA
- 
-Magnetic Properties:
-As-Cast Saturation Polarization: 0.683 [T]
-Crystallized Saturation Polarization: 0.675 [T]
-Approx. Amorphous Curie Temperature: 433C
-Approx. Total Curie Temperature:
+Date Tested:  7.2.24 Pitt
+
+Testing conditions:
+4 stacked discs: 5.5mg
+Measure every 15degrees
+
+Amorphous Curie temperature (°C): 433
+HK Parameter: 0.5
+R^2: 0.997
+M(0)/M(RT): 1.08
+SSE:2.338522e-03
+<!-- PUBLISH STOP -->
  ![[Pasted image 20250618155515.png]]
  ![[Pasted image 20250618155538.png]]

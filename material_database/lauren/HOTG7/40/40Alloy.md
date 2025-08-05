@@ -13,8 +13,10 @@ As-Cast Saturation Polarization (Brockhaus, 5 [kA/m]):  0.872 [T]
 Crystallized Saturation Polarization (Brockhaus, 8 [kA/m]):  0.841 [T]
 Approx. Amorphous Curie Temperature: 618C
 Approx. Total Curie Temperature: 
-[[40 DSC]]
-[[40 Mechanical]]
-[[40 Stress Annealing Data]]
-[[40 VSM]]
 
+| Additional Data                                    |
+| -------------------------------------------------- |
+| [[40DSC\|DSC]]                            |
+| [[40Mechanical\|Mechanical]]              |
+| [[40StressAnnealing\|Stress Annealing]]   |
+| [[40VSM\|VSM]]                            |

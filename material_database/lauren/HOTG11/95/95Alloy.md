@@ -1,0 +1,22 @@
+Nominal Composition: Co73Fe7Si2B7Ta11
+Cast Group: HOTG11
+Other Designators: BAM#, BMS 
+ 
+Physical Properties:
+Mass Density (ingot): g/cc
+ Primary Crystallization Temperature (DSC):
+Secondary Crystallization Temperature (DSC):
+
+Magnetic Properties:
+As-Cast Saturation Polarization 
+Crystallized Saturation Polarization: 
+Approx. Amorphous Curie Temperature: 
+Approx. Total Curie Temperature:
+
+| Additional Data                         |
+| --------------------------------------- |
+| [[95DSC\|DSC]]                          |
+| [[95Mechanical\|Mechanical]]            |
+| [[95StressAnnealing\|Stress Annealing]] |
+| [[95VSM\|VSM]]                          |
+| [[95XRD\|XRD]]                          |

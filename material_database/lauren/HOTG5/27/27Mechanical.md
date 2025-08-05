@@ -1,2 +1,5 @@
-Pinholes:
-![[Pasted image 20250618154825.png]]
+Pinholes Data:
+
+Percent Area:
+Number of Pinholes:
+<!-- PUBLISH STOP -->

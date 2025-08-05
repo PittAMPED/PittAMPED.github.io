@@ -14,8 +14,10 @@ Crystallized Saturation Polarization (Brockhaus, 8 [kA/m]): 0.521 [T]
 Approx. Amorphous Curie Temperature: 586C
 Approx. Total Curie Temperature: 
 
-[[49 DSC]]
-[[49 Mechanical]]
-[[49 Stress Annealing Data]]
-[[49 VSM]]
-[[49 XRD]]
+| Additional Data                         |
+| --------------------------------------- |
+| [[49DSC\|DSC]]                          |
+| [[49Mechanical\|Mechanical]]            |
+| [[49StressAnnealing\|Stress Annealing]] |
+| [[49VSM\|VSM]]                          |
+| [[49XRD\|XRD]]                          |

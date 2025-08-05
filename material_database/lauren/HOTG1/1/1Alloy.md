@@ -1,6 +1,5 @@
+<!-- PUBLISH START -->
 **Nominal Composition: Co-Fe2.5Mn2Nb4Si2B14**
-Cast Group: HOTG1
-Other Designators: BMS 428
  
 **Physical Properties:**
 Mass Density (ingot): 
@@ -13,9 +12,10 @@ Crystallized Saturation Polarization:
 Approx. Amorphous Curie Temperature: 688C
 Approx. Total Curie Temperature: 
 
-| [[1 DSC]]                   |
-| --------------------------- |
-| [[1 Stress Annealing Data]] |
-| [[1 VSM]]                   |
-|                             |
-|                             |
+| Additional Data                        |
+| -------------------------------------- |
+| [[1DSC\|DSC]]                          |
+| [[1Mechanical\|Mechanical]]            |
+| [[1StressAnnealing\|Stress Annealing]] |
+| [[1VSM\|VSM]]                          |
+
