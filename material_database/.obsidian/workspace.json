@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "e3568bfcc4e29357",
+    "id": "6c33422774284f66",
     "type": "split",
     "children": [
       {
-        "id": "98cd689f583fb816",
+        "id": "1fda85bcdbbea82c",
         "type": "tabs",
         "children": [
           {
-            "id": "91c7882a9b6cd001",
+            "id": "b6715e5f37687993",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Template Alloy/Alloy.md",
+                "file": "lauren/HOTG1/1/1StressAnnealing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Alloy"
+              "title": "1StressAnnealing"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "c0e7d98bc656b9f4",
+    "id": "d329f6e92afe9952",
     "type": "split",
     "children": [
       {
-        "id": "dbb0e26c80027731",
+        "id": "6d4bfbf2f997ad61",
         "type": "tabs",
         "children": [
           {
-            "id": "5a404caf1db6c8dc",
+            "id": "b3187bf0d22e008b",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +48,7 @@
             }
           },
           {
-            "id": "cad958ed697fcd69",
+            "id": "ec6bea54c42262ae",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +65,7 @@
             }
           },
           {
-            "id": "0dca6b2480aaee10",
+            "id": "5d79525cbae234d4",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -78,23 +78,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 276.50312423706055
+    "width": 300
   },
   "right": {
-    "id": "d15c52a9e5e16166",
+    "id": "50376c4a036bfdfe",
     "type": "split",
     "children": [
       {
-        "id": "ac44ebe967736440",
+        "id": "71d53b29feb486f2",
         "type": "tabs",
         "children": [
           {
-            "id": "00296eae076278fc",
+            "id": "c634ee3eedcc0974",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG1/1/1StressAnnealing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 16 VSM"
+              "title": "Backlinks for 1StressAnnealing"
             }
           },
           {
-            "id": "4bc1b8f10420d631",
+            "id": "ab44ebd89da7457a",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG1/1/1StressAnnealing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 16 VSM"
+              "title": "Outgoing links from 1StressAnnealing"
             }
           },
           {
-            "id": "62a1586d13839216",
+            "id": "94ddeb3d2c3d4092",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,18 +137,18 @@
             }
           },
           {
-            "id": "02411392975bee65",
+            "id": "77dd6bf598331330",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG1/1/1StressAnnealing.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 16 VSM"
+              "title": "Outline of 1StressAnnealing"
             }
           }
         ]
@@ -160,114 +160,18 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "system3-relay:Relay": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "system3-relay:Relay": false
     }
   },
-  "active": "91c7882a9b6cd001",
+  "active": "b6715e5f37687993",
   "lastOpenFiles": [
-<<<<<<< HEAD
-    "Template Alloy/FieldAnnealing.md",
-    "Template Alloy/Alloy.md",
-    "lauren/HOTG7/39/39FieldAnnealing.md",
-    "Template Alloy/DSC.md",
-    "Template Alloy/Mechanical.md",
-    "Template Alloy/StressAnnealing.md",
-    "Template Alloy/XRD.md",
-    "Template Alloy/VSM.md",
-    "lauren/HOTG11/95/95Alloy.md",
-    "lauren/HOTG11/95/95DSC.md",
-    "2025-07-20.md",
-    "Template Alloy",
-=======
-    "lauren/HOTG1/1/1StressAnnealingData.md",
-    "lauren/HOTG1/1/1DSC.md",
-    "lauren/HOTG1/1/1 Images/Pasted image 20250618095239.png",
-    "lauren/HOTG1/1/1 Images/Pasted image 20250612121527.png",
-    "Pasted image 20250706210952.png",
-    "Pasted image 20250706214116.png",
-    "Pasted image 20250706210928.png",
-    "Pasted image 20250706210518.png",
-    "Pasted image 20250706210421.png",
-    "Pasted image 20250618214202.png",
-    "Pasted image 20250618155607.png",
->>>>>>> 96e4c3e196efa718b3e41c6657cafdffee2da7ed
-    "database/lauren_directory.md",
-    "lauren/Images/Pasted image 20250728031450.png",
-    "lauren/HOTG5/31/31Alloy.md",
-    "lauren/HOTG8/54/54Alloy.md",
-    "lauren/HOTG8/54/54XRD.md",
-    "lauren/HOTG5/25/25Alloy.md",
     "lauren/HOTG1/1/1Alloy.md",
-<<<<<<< HEAD
-    "lauren/HOTG1/1/1VSM.md",
-    "lauren/HOTG1/1/1Mechanical.md",
-    "lauren/HOTG1/1/1StressAnnealing.md",
-    "lauren/HOTG1/1/1DSC.md",
-    "lauren/HOTG1/1/1Images/Pasted image 20250728031413.png",
-    "lauren/HOTG1/1/1Images",
-    "database/deva_directory.md",
-    "lauren/HOTG1/2/2DSC.md",
-    "lauren/HOTG1/2/2StressAnnealing.md",
-    "lauren/HOTG1/2/2Mechanical.md",
-    "lauren/HOTG8/67/67Alloy.md",
-    "lauren/Images/Pasted image 20250719220919.png",
-    "Untitled.canvas",
-    "lauren/Images/Pasted image 20250719205217.png",
-    "lauren/Images/Pasted image 20250719182507.png",
-    "lauren/Images/Pasted image 20250719182326.png",
-    "lauren/Images/Pasted image 20250719131915.png",
-    "lauren/Images/Pasted image 20250719131910.png",
-    "lauren/Images/Pasted image 20250719131415.png",
-    "lauren/Images/Pasted image 20250718173543.png",
-    "Untitled 1.canvas",
-    "lauren/HOTG11/94",
-    "lauren/HOTG11/93",
-    "lauren/HOTG11/92",
-    "lauren/HOTG10/89",
-    "lauren/HOTG10/88",
-    "lauren/HOTG10/87",
-    "lauren/HOTG10/86",
-    "lauren/HOTG10/85"
-=======
-    "lauren/HOTG1/3/3Alloy.md",
-    "3Alloy.md",
-    "4 Alloy.md",
-    "lauren/HOTG1/4/4DSC.md",
-    "lauren/HOTG1/4/4Alloy.md",
-    "lauren/HOTG1/2/2Alloy.md",
-    "lauren/HOTG8/70/70StressAnnealing.md",
-    "lauren/HOTG8/70/70Alloy.md",
-    "lauren/HOTG8/70/70XRD.md",
-    "lauren/HOTG8/70/70DSC.md",
-    "lauren/HOTG8/70/70Mechanical.md",
-    "lauren/HOTG8/70/70VSM.md",
-    "lauren/HOTG8/64/64Alloy.md",
-    "lauren/HOTG8/64/64StressAnnealing.md",
-    "lauren/HOTG8/64/64DSC.md",
-    "lauren/HOTG8/64/64VSM.md",
-    "lauren/HOTG8/64/64XRD.md",
-    "lauren/HOTG8/64/64Mechanical.md",
-    "lauren/HOTG8/63/63StressAnnealing.md",
-    "lauren/HOTG8/63/63XRD.md",
-    "lauren/HOTG8/63/63DSC.md",
-    "lauren/HOTG8/63/63VSM.md",
-    "lauren/Images/Pasted image 20250617140340.png",
-    "lauren/Images",
-    "lauren/How data collect",
-    "lauren/HOTG7/45/45 Images",
-    "lauren/HOTG7/45",
-    "lauren/HOTG7/44/44 Images",
-    "lauren/HOTG7/44",
-    "lauren/HOTG7/43/43 Images",
-    "lauren/HOTG7/43",
-    "lauren/HOTG7/42/42 Images",
-    "lauren/HOTG7/42"
->>>>>>> 96e4c3e196efa718b3e41c6657cafdffee2da7ed
+    "lauren/HOTG1/1/1Mechanical.md"
   ]
 }
