@@ -1,37 +1,94 @@
 {
   "main": {
-    "id": "e3568bfcc4e29357",
+    "id": "9f574ce2a0b5afb3",
     "type": "split",
     "children": [
       {
-        "id": "98cd689f583fb816",
+        "id": "28280567c9162f17",
         "type": "tabs",
         "children": [
           {
-            "id": "91c7882a9b6cd001",
+            "id": "15acd077488d629c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "lauren/HOTG4/20/20DSC.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "20DSC"
+            }
+          },
+          {
+            "id": "5f9e9e1c7a18508b",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.10"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.10"
+            }
+          },
+          {
+            "id": "c53842efbe3b0089",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.14"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.14"
+            }
+          },
+          {
+            "id": "35de4a913fd71d2a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "lauren/HOTG4/21/21StressAnnealing.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "21StressAnnealing"
+            }
+          },
+          {
+            "id": "c4e03724adfeeac0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "database/lauren_directory.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "lauren_directory"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "c0e7d98bc656b9f4",
+    "id": "b6ddbb1f73b930a5",
     "type": "split",
     "children": [
       {
-        "id": "dbb0e26c80027731",
+        "id": "62872a12646768ca",
         "type": "tabs",
         "children": [
           {
-            "id": "5a404caf1db6c8dc",
+            "id": "499c4b3cfbc2acbd",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,7 +101,7 @@
             }
           },
           {
-            "id": "cad958ed697fcd69",
+            "id": "370e476cbfdaa5ea",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +118,7 @@
             }
           },
           {
-            "id": "0dca6b2480aaee10",
+            "id": "a237faef6f2ab27e",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -74,23 +131,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 240.50260543823242
+    "width": 300
   },
   "right": {
-    "id": "d15c52a9e5e16166",
+    "id": "97b596d68c0dbedb",
     "type": "split",
     "children": [
       {
-        "id": "ac44ebe967736440",
+        "id": "c9d0719633a0b159",
         "type": "tabs",
         "children": [
           {
-            "id": "00296eae076278fc",
+            "id": "68c53320344941cc",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG4/24/24Alloy.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,25 +157,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 16 VSM"
+              "title": "Backlinks for 24Alloy"
             }
           },
           {
-            "id": "4bc1b8f10420d631",
+            "id": "cf8cf7b1b9d02cb8",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG4/24/24Alloy.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 16 VSM"
+              "title": "Outgoing links from 24Alloy"
             }
           },
           {
-            "id": "62a1586d13839216",
+            "id": "02e484b310c4e2d4",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -133,18 +190,18 @@
             }
           },
           {
-            "id": "02411392975bee65",
+            "id": "4515974b78ab11cc",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Lauren's DataBase/16/16 VSM.md",
+                "file": "lauren/HOTG4/24/24Alloy.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 16 VSM"
+              "title": "Outline of 24Alloy"
             }
           }
         ]
@@ -156,30 +213,18 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "system3-relay:Relay": false
     }
   },
-  "active": "91c7882a9b6cd001",
+  "active": "c4e03724adfeeac0",
   "lastOpenFiles": [
-    "lauren/Images/Pasted image 20250617140340.png",
-    "lauren/Images/Pasted image 20250617140324.png",
-    "lauren/Images/Pasted image 20250617140159.png",
-    "lauren/Images/Pasted image 20250617140040.png",
-    "lauren/Images/Pasted image 20250617140148.png",
-    "lauren/Images/Pasted image 20250617140015.png",
-    "lauren/Images/Pasted image 20250617135832.png",
-    "lauren/Images/Pasted image 20250617135813.png",
-    "lauren/Images/Pasted image 20250617135628.png",
-    "lauren/Images/Pasted image 20250617135550.png",
-    "lauren/Images/Pasted image 20250617124304.png",
-    "lauren/Images",
-    "lauren/How data collect/yippeee.md",
-    "lauren/How data collect",
     "lauren/Cast Group HOTG8/70/70 XRD.md",
     "lauren/Cast Group HOTG8/70/70 VSM.md",
     "lauren/Cast Group HOTG8/70/70 Stress Annealing.md",
@@ -204,13 +249,27 @@
     "lauren/Cast Group HOTG8/67/67 Mechanical.md",
     "lauren/Cast Group HOTG8/67/67 DSC.md",
     "lauren/Cast Group HOTG8/67/67 Alloy.md",
-    "lauren/Cast Group HOTG7/45/45 Images",
-    "lauren/Cast Group HOTG7/45",
-    "lauren/Cast Group HOTG7/44/44 Images",
-    "lauren/Cast Group HOTG7/44",
-    "lauren/Cast Group HOTG7/43/43 Images",
-    "lauren/Cast Group HOTG7/43",
-    "lauren/Cast Group HOTG7/42/42 Images",
-    "lauren/Cast Group HOTG7/42"
+    "lauren/Cast Group HOTG8/66/66 XRD.md",
+    "lauren/Cast Group HOTG8/66/66 VSM.md",
+    "lauren/Cast Group HOTG8/70",
+    "lauren/Cast Group HOTG8/69",
+    "lauren/Cast Group HOTG8/68",
+    "lauren/Cast Group HOTG8/67",
+    "lauren/Cast Group HOTG8/66",
+    "lauren/Cast Group HOTG8/65",
+    "lauren/Cast Group HOTG8/64",
+    "lauren/Cast Group HOTG8/63",
+    "lauren/Cast Group HOTG8/62",
+    "lauren/Cast Group HOTG8/61",
+    "lauren/Cast Group HOTG7/45/45 Images/Pasted image 20250706210311.png",
+    "lauren/Cast Group HOTG7/45/45 Images/Pasted image 20250706210243.png",
+    "lauren/Cast Group HOTG7/45/45 Images/Pasted image 20250706210238.png",
+    "lauren/Cast Group HOTG7/45/45 Images/Pasted image 20250706210209.png",
+    "lauren/Cast Group HOTG7/44/44 Images/Pasted image 20250706205945.png",
+    "lauren/Cast Group HOTG7/44/44 Images/Pasted image 20250706205852.png",
+    "lauren/Cast Group HOTG7/43/43 Images/Pasted image 20250706205546.png",
+    "lauren/Cast Group HOTG7/43/43 Images/Pasted image 20250706205518.png",
+    "lauren/Cast Group HOTG7/41/41 Images/Pasted image 20250706204946.png",
+    "lauren/Cast Group HOTG7/41/41 Images/Pasted image 20250706204853.png"
   ]
 }
