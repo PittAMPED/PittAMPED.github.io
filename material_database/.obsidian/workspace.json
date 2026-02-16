@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "database/Other 1.md",
+                "file": "database/lauren_directory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Other 1"
+              "title": "lauren_directory"
             }
           }
         ]
@@ -173,8 +173,8 @@
   },
   "active": "ba90a50384528be8",
   "lastOpenFiles": [
-    "database/lauren_directory.md",
     "database/Other 1.md",
+    "database/lauren_directory.md",
     "lauren/HOTG1/1/1Alloy.md",
     "database/Other 2.md",
     "Untitled 1.canvas",
