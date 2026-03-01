@@ -1,0 +1,271 @@
+# === Imports ===
+from pathlib import Path
+from urllib.parse import quote
+import markdown2
+import os
+import re
+import shutil
+
+# === Helpers ===
+def slugify(text):
+    return re.sub(r"[^\w\-]", "", text.strip().replace(" ", ""))
+
+# === Configuration Paths ===
+# Use __file__ so paths are always relative to THIS script,
+# regardless of how or from where the script is launched
+# (terminal, Obsidian hotkey, GUI, etc.)
+base = Path(__file__).resolve().parent
+
+input_dir = base / "material_database"
+output_dir = base / "public_database" / "lauren_public"
+output_dir.mkdir(parents=True, exist_ok=True)
+
+material_root = input_dir / "lauren"
+material_output_root = output_dir / "nc_alloys"
+whitelist_path = base / "pages_to_publish.txt"
+material_template = base / "public_database" / "material_template.html"
+
+# === Mappings ===
+folder_to_output = {
+    "database/lauren_directory.md": {
+        "template": base / "public_database" / "lauren_public" / "nc_template.html",
+        "filename": output_dir / "nc_index.html"
+    },
+    "deva": {
+        "template": base / "fm_template.html",
+        "filename": output_dir / "Ferromagneticealloy.html"
+    }
+}
+
+wiki_link_map = {}
+html_file_map = {}
+image_map = {}
+
+# === Step 1: Build Wiki Link Map ===
+for md_file in material_root.rglob("*.md"):
+    if md_file.name.startswith(("_", ".")):
+        continue
+    key = slugify(md_file.stem)
+    rel_path = md_file.relative_to(material_root).with_suffix(".html")
+    wiki_link_map[key] = rel_path
+    html_file_map[md_file] = rel_path
+
+# === Step 2: Build Image Map ===
+def build_image_map():
+    print("🔍 Building image database...")
+    image_exts = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"]
+
+    for md_file in material_root.rglob("*.md"):
+        if md_file.name.startswith(("_", ".")):
+            continue
+        try:
+            content = md_file.read_text(encoding="utf-8")
+            image_refs = re.findall(r"!\[\[([^\]]+)\]\]", content)
+
+            for image_ref in image_refs:
+                if image_ref in image_map:
+                    continue
+
+                search_locations = [
+                    md_file.parent,
+                    md_file.parent / "images",
+                    md_file.parent / "Images",
+                    md_file.parent / "1 images",
+                    md_file.parent / "1 Images"
+                ]
+
+                parent_dir = md_file.parent
+                while parent_dir != material_root and parent_dir.parent != parent_dir:
+                    search_locations.extend([
+                        parent_dir / "images",
+                        parent_dir / "Images",
+                        parent_dir / "1 images",
+                        parent_dir / "1 Images"
+                    ])
+                    parent_dir = parent_dir.parent
+
+                found_image = None
+                if not any(image_ref.lower().endswith(ext) for ext in image_exts):
+                    for loc in search_locations:
+                        if not loc.exists():
+                            continue
+                        for ext in image_exts:
+                            test = loc / f"{image_ref}{ext}"
+                            if test.exists():
+                                found_image = test
+                                break
+                        if found_image:
+                            break
+                else:
+                    for loc in search_locations:
+                        test = loc / image_ref
+                        if test.exists():
+                            found_image = test
+                            break
+
+                if found_image:
+                    rel_path = found_image.relative_to(material_root)
+                    image_map[image_ref] = rel_path
+                    print(f"✅ Found image: {image_ref} -> {rel_path}")
+                else:
+                    image_map[image_ref] = None
+                    print(f"❌ Image not found: {image_ref} in {md_file.relative_to(material_root)}")
+
+        except Exception as e:
+            print(f"❌ Error reading {md_file}: {e}")
+
+    found   = sum(1 for v in image_map.values() if v is not None)
+    missing = sum(1 for v in image_map.values() if v is None)
+    print(f"📊 Image database built: {found} found, {missing} missing")
+
+
+# === Step 3: Content Processing Functions ===
+def apply_publish_stop(content):
+    """Truncate content at PUBLISH STOP marker if present."""
+    if "<!-- PUBLISH STOP -->" in content:
+        content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
+    return content
+
+
+def process_markdown(content, current_md_path=None, is_index_page=False):
+    """Process markdown content: resolve wiki links and images, then render HTML."""
+
+    def replace_wiki(m):
+        raw_target  = m.group(1).strip()
+        label       = m.group(3) or raw_target
+        target_slug = slugify(raw_target)
+        target_rel  = wiki_link_map.get(target_slug)
+
+        if not target_rel:
+            return f'<a href="#" style="color: red;">Link not found: {label}</a>'
+
+        if is_index_page:
+            href = f"nc_alloys/{target_rel.as_posix()}"
+        elif current_md_path and current_md_path in html_file_map:
+            current_rel = html_file_map[current_md_path]
+            href = os.path.relpath(
+                material_output_root / target_rel,
+                start=(material_output_root / current_rel).parent
+            ).replace("\\", "/")
+        else:
+            href = target_rel.as_posix()
+
+        return f'<a href="{href}">{label}</a>'
+
+    def replace_image(m):
+        name = m.group(1).strip()
+        if name not in image_map or image_map[name] is None:
+            return f"<div><strong>Missing Image:</strong> {name}</div>"
+
+        rel_path = image_map[name]
+        if is_index_page:
+            src = f"nc_alloys/{rel_path.as_posix()}"
+        elif current_md_path and current_md_path in html_file_map:
+            current_html = material_output_root / html_file_map[current_md_path]
+            src = os.path.relpath(
+                material_output_root / rel_path,
+                start=current_html.parent
+            ).replace("\\", "/")
+        else:
+            src = rel_path.as_posix()
+
+        return f'<img src="{src}" alt="{name}" style="max-width:100%;">'
+
+    content = re.sub(r"\[\[([^\[\]|]+)(\|([^\]]+))?\]\]", replace_wiki, content)
+    content = re.sub(r"!\[\[([^\]]+)\]\]", replace_image, content)
+    return markdown2.markdown(
+        content,
+        extras=["fenced-code-blocks", "tables", "footnotes", "break-on-newline"]
+    )
+
+
+# === Step 4: Copy Images ===
+def copy_images():
+    print("\n📁 Copying images...")
+    copied = 0
+    for name, rel in image_map.items():
+        if rel is None:
+            continue
+        src = material_root / rel
+        dst = material_output_root / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if not dst.exists() or src.stat().st_mtime > dst.stat().st_mtime:
+            shutil.copy2(src, dst)
+            copied += 1
+            print(f"✅ Copied: {rel}")
+    print(f"📊 Images copied: {copied}")
+
+
+# === Step 5: Generate Index Pages ===
+def generate_index_pages():
+    print("\n📄 Generating index/static pages...")
+    if not whitelist_path.exists():
+        print(f"⚠ Whitelist not found: {whitelist_path}")
+        return
+    for line in whitelist_path.read_text(encoding="utf-8").splitlines():
+        item = line.strip().rstrip("/")
+        if not item or item.startswith("#") or item not in folder_to_output:
+            continue
+        path     = input_dir / item
+        out_info = folder_to_output[item]
+        md_blocks = []
+
+        if path.is_file():
+            content           = path.read_text(encoding="utf-8")
+            processed_content = apply_publish_stop(content)
+            md_blocks.append(process_markdown(processed_content, current_md_path=path, is_index_page=True))
+        elif path.is_dir():
+            for md_file in sorted(path.rglob("*.md")):
+                if md_file.name.startswith(("_", ".")):
+                    continue
+                content           = md_file.read_text(encoding="utf-8")
+                processed_content = apply_publish_stop(content)
+                md_blocks.append(process_markdown(processed_content, current_md_path=md_file, is_index_page=True))
+
+        combined = "\n<hr/>\n".join(md_blocks)
+        template = out_info["template"].read_text()
+        out_info["filename"].write_text(
+            template.replace("<!-- CONTENT GOES HERE -->", combined),
+            encoding="utf-8"
+        )
+        print(f"✅ Created index: {out_info['filename'].relative_to(base)}")
+
+
+# === Step 6: Generate Individual Material Pages ===
+def generate_material_pages():
+    print("\n📄 Generating individual material pages...")
+    if not material_template.exists():
+        print(f"⚠ Material template not found: {material_template}")
+        return
+    template = material_template.read_text()
+
+    for md_file in sorted(material_root.rglob("*.md")):
+        if md_file.name.lower() == "lauren_directory.md" or md_file.name.startswith(("_", ".")):
+            continue
+
+        slug     = slugify(md_file.stem)
+        out_file = material_output_root / md_file.relative_to(material_root).parent / f"{slug}.html"
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+
+        content           = md_file.read_text(encoding="utf-8")
+        processed_content = apply_publish_stop(content)
+        html              = process_markdown(processed_content, current_md_path=md_file, is_index_page=False)
+
+        title = processed_content.strip().split("\n", 1)[0].lstrip("#").strip() or slug.replace("_", " ").title()
+
+        final_html = (
+            template
+            .replace("<!-- CONTENT GOES HERE -->", html)
+            .replace("<!-- TITLE GOES HERE -->", title)
+        )
+        out_file.write_text(final_html, encoding="utf-8")
+        print(f"✅ Created material page: {out_file.relative_to(base)}")
+
+
+# === Main Execution ===
+if __name__ == "__main__":
+    build_image_map()
+    copy_images()
+    generate_index_pages()
+    generate_material_pages()
+    print("\n🎉 Processing complete!")
