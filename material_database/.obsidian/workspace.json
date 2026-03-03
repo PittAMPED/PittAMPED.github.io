@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "nanocrystalline/HOTG1/1/1Alloy.md",
+                "file": "database/nanocrystalline_directory.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1Alloy"
+              "title": "nanocrystalline_directory"
             }
           }
         ],
@@ -188,6 +188,9 @@
   },
   "active": "a7c647fffdc78423",
   "lastOpenFiles": [
+    "database/ferrites_directory.md",
+    "database/nanocrystalline_directory.md",
+    "nanocrystalline/HOTG1/1/1Alloy.md",
     "Test folder.md",
     "database/Test folder main.md",
     "Test folder/Index Page.md",
@@ -224,9 +227,6 @@
     "nanocrystalline/HOTG9/78/78Mechanical.md",
     "nanocrystalline/HOTG9/78/78DSC.md",
     "nanocrystalline/HOTG9/78/78Alloy.md",
-    "nanocrystalline/HOTG9/77/77XRD.md",
-    "nanocrystalline/HOTG9/77/77VSM.md",
-    "nanocrystalline/HOTG9/77/77StressAnnealing.md",
     "nanocrystalline/HOTG9/78",
     "nanocrystalline/HOTG9/77",
     "nanocrystalline/HOTG9/76",

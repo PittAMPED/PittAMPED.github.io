@@ -5,30 +5,45 @@ import os
 import re
 import shutil
 
+# =============================================================================
+# CONFIGURATION — edit this section when you rename folders
+# =============================================================================
+
+# Maps directory .md filename (without _directory suffix) → material folder name
+# Example: "lauren" means lauren_directory.md → maps to the folder below
+# Change the RIGHT side to match your actual folder name in material_database/
+# Change the LEFT side to match your actual _directory.md filename in database/
+SECTION_MAP = {
+    "nanocrystalline": "nanocrystalline",   # nanocrystalline_directory.md → nanocrystalline/
+    "ferrites":        "ferrites",           # ferrites_directory.md        → ferrites/
+    # Add new sections here as you create them:
+    # "my_new_section": "my_new_folder",
+}
+
+# Folders inside material_database/ to always ignore
+SKIP_FOLDERS = {"Template Alloy", "database"}
+
+# =============================================================================
+
+
 # === Helpers ===
 def slugify(text):
     return re.sub(r"[^\w\-]", "", text.strip().replace(" ", ""))
 
 # === Configuration Paths ===
-# Use __file__ so paths are always relative to THIS script,
-# regardless of how or from where the script is launched
 base = Path(__file__).resolve().parent
 
 input_dir    = base / "material_database"
-database_dir = input_dir / "database"   # contains all _directory.md files
+database_dir = input_dir / "database"
 output_root  = base / "public_database"
-template_dir = output_root              # material_template.html lives here
-
-# Folders to always skip inside material_database/
-SKIP_FOLDERS = {"Template Alloy", "database"}
+template_dir = output_root
 
 
-# === Auto-detect all sections from database/ folder ===
+# === Auto-detect all sections ===
 def detect_sections():
     """
-    Scans database/ for .md files. Each one maps to a material folder.
-    e.g. lauren_directory.md → material_database/lauren/
-    Returns a list of section dicts.
+    Uses SECTION_MAP to find directory .md files and their matching folders.
+    To rename something: update SECTION_MAP at the top of this file.
     """
     sections = []
 
@@ -36,77 +51,63 @@ def detect_sections():
         print(f"⚠ database/ folder not found at {database_dir}")
         return sections
 
-    for md_file in sorted(database_dir.glob("*.md")):
-        if md_file.name.startswith(("_", ".")):
+    for section_key, folder_name in SECTION_MAP.items():
+        # Look for the directory .md file
+        md_file = database_dir / f"{section_key}_directory.md"
+        if not md_file.exists():
+            print(f"⚠ Directory file not found: {md_file.name} — skipping '{section_key}'.")
             continue
 
-        # Strip _directory suffix to get the section name
-        stem = md_file.stem
-        name = re.sub(r"[_\-]directory$", "", stem, flags=re.IGNORECASE)
-
-        # Find matching folder in material_database/ (case-insensitive)
-        material_root = None
-        for folder in input_dir.iterdir():
-            if not folder.is_dir():
-                continue
-            if folder.name in SKIP_FOLDERS:
-                continue
-            if folder.name.lower() == name.lower():
-                material_root = folder
-                break
-
-        if material_root is None:
-            print(f"⚠ No matching material folder found for '{md_file.name}' (looked for '{name}') — skipping.")
+        # Look for the matching material folder
+        material_root = input_dir / folder_name
+        if not material_root.exists() or not material_root.is_dir():
+            print(f"⚠ Material folder not found: material_database/{folder_name}/ — skipping '{section_key}'.")
             continue
 
-        # Output paths for this section
-        section_output_dir = output_root / f"{name}_public"
+        # Output paths
+        section_output_dir = output_root / f"{section_key}_public"
         section_output_dir.mkdir(parents=True, exist_ok=True)
 
         sections.append({
-            "name":          name,
+            "name":          section_key,
             "directory_md":  md_file,
             "material_root": material_root,
             "output_dir":    section_output_dir,
-            "index_html":    section_output_dir / f"{name}_index.html",
+            "index_html":    section_output_dir / f"{section_key}_index.html",
             "template_html": section_output_dir / "nc_template.html",
             "material_tmpl": template_dir / "material_template.html",
         })
-        print(f"📂 Detected section: '{name}' → {material_root.name}/ → {section_output_dir.name}/")
+        print(f"📂 Section: '{section_key}' → material_database/{folder_name}/ → {section_output_dir.name}/")
 
     return sections
 
 
-# === Per-section maps (rebuilt for each section) ===
+# === Per-section maps ===
 wiki_link_map = {}
 html_file_map = {}
 image_map     = {}
 
 
-def build_maps_for_section(section):
-    """Rebuild wiki/image maps for a given section."""
+def _build_maps(section):
     global wiki_link_map, html_file_map, image_map
     wiki_link_map = {}
     html_file_map = {}
     image_map     = {}
 
-    material_root        = section["material_root"]
-
-    for md_file in material_root.rglob("*.md"):
+    for md_file in section["material_root"].rglob("*.md"):
         if md_file.name.startswith(("_", ".")):
             continue
         key      = slugify(md_file.stem)
-        rel_path = md_file.relative_to(material_root).with_suffix(".html")
-        wiki_link_map[key] = rel_path
+        rel_path = md_file.relative_to(section["material_root"]).with_suffix(".html")
+        wiki_link_map[key]     = rel_path
         html_file_map[md_file] = rel_path
 
 
-# === Step 2: Build Image Map ===
-def build_image_map(section):
+def _build_image_map(section):
     material_root = section["material_root"]
+    image_exts    = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"]
 
     print(f"🔍 [{section['name']}] Building image database...")
-    image_exts = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"]
 
     for md_file in material_root.rglob("*.md"):
         if md_file.name.startswith(("_", ".")):
@@ -156,8 +157,7 @@ def build_image_map(section):
                             break
 
                 if found_image:
-                    rel_path             = found_image.relative_to(material_root)
-                    image_map[image_ref] = rel_path
+                    image_map[image_ref] = found_image.relative_to(material_root)
                     print(f"  ✅ Found image: {image_ref}")
                 else:
                     image_map[image_ref] = None
@@ -171,7 +171,7 @@ def build_image_map(section):
     print(f"  📊 Images: {found} found, {missing} missing")
 
 
-# === Step 3: Content Processing ===
+# === Content Processing ===
 def apply_publish_stop(content):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
@@ -230,17 +230,15 @@ def process_markdown(content, section, current_md_path=None, is_index_page=False
     )
 
 
-# === Step 4: Copy Images ===
-def copy_images(section):
-    material_root        = section["material_root"]
+# === Copy Images ===
+def _copy_images(section):
     material_output_root = section["output_dir"] / "alloys"
-
     print(f"\n📁 [{section['name']}] Copying images...")
     copied = 0
     for name, rel in image_map.items():
         if rel is None:
             continue
-        src = material_root / rel
+        src = section["material_root"] / rel
         dst = material_output_root / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         if not dst.exists() or src.stat().st_mtime > dst.stat().st_mtime:
@@ -250,18 +248,17 @@ def copy_images(section):
     print(f"  📊 Images copied: {copied}")
 
 
-# === Step 5: Generate Index Page ===
-def generate_index_page(section):
+# === Generate Index Page ===
+def _generate_index_page(section):
     print(f"\n📄 [{section['name']}] Generating index page...")
 
     template_path = section["template_html"]
     if not template_path.exists():
-        print(f"  ⚠ Template not found: {template_path} — skipping index page.")
+        print(f"  ⚠ Template not found: {template_path} — skipping.")
         return
 
     md_file = section["directory_md"]
-    content = md_file.read_text(encoding="utf-8")
-    content = apply_publish_stop(content)
+    content = apply_publish_stop(md_file.read_text(encoding="utf-8"))
     html    = process_markdown(content, section, current_md_path=md_file, is_index_page=True)
 
     template = template_path.read_text(encoding="utf-8")
@@ -272,8 +269,8 @@ def generate_index_page(section):
     print(f"  ✅ Created index: {section['index_html'].relative_to(base)}")
 
 
-# === Step 6: Generate Individual Material Pages ===
-def generate_material_pages_for_section(section):
+# === Generate Individual Material Pages ===
+def _generate_material_pages(section):
     material_root        = section["material_root"]
     material_output_root = section["output_dir"] / "alloys"
 
@@ -281,10 +278,9 @@ def generate_material_pages_for_section(section):
 
     template_path = section["material_tmpl"]
     if not template_path.exists():
-        print(f"  ⚠ material_template.html not found at {template_path} — skipping.")
+        print(f"  ⚠ material_template.html not found — skipping.")
         return
-    template = template_path.read_text(encoding="utf-8")
-
+    template       = template_path.read_text(encoding="utf-8")
     directory_stem = section["directory_md"].stem.lower()
 
     for md_file in sorted(material_root.rglob("*.md")):
@@ -302,48 +298,52 @@ def generate_material_pages_for_section(section):
         html              = process_markdown(processed_content, section, current_md_path=md_file, is_index_page=False)
         title             = processed_content.strip().split("\n", 1)[0].lstrip("#").strip() or slug.replace("_", " ").title()
 
-        final_html = (
+        out_file.write_text(
             template
             .replace("<!-- CONTENT GOES HERE -->", html)
-            .replace("<!-- TITLE GOES HERE -->", title)
+            .replace("<!-- TITLE GOES HERE -->", title),
+            encoding="utf-8"
         )
-        out_file.write_text(final_html, encoding="utf-8")
         print(f"  ✅ Created: {out_file.relative_to(base)}")
 
 
-# === Functions exposed to GUI ===
-# The GUI calls these by name, so they must exist at module level.
+# =============================================================================
+# Functions called by GUI
+# =============================================================================
 
 def build_image_map():
     for section in detect_sections():
-        build_maps_for_section(section)
-        build_image_map(section)
+        _build_maps(section)
+        _build_image_map(section)
 
-def copy_images_all():
+def copy_images():
     for section in detect_sections():
-        build_maps_for_section(section)
-        build_image_map(section)
-        copy_images(section)
+        _build_maps(section)
+        _build_image_map(section)
+        _copy_images(section)
 
 def generate_index_pages():
     for section in detect_sections():
-        build_maps_for_section(section)
-        generate_index_page(section)
+        _build_maps(section)
+        _generate_index_page(section)
 
 def generate_material_pages():
     for section in detect_sections():
-        build_maps_for_section(section)
-        build_image_map(section)
-        generate_material_pages_for_section(section)
+        _build_maps(section)
+        _build_image_map(section)
+        _generate_material_pages(section)
 
 
-# === Main Execution ===
+# =============================================================================
+# Main
+# =============================================================================
+
 def run_all():
-    print("🔍 Detecting sections from database/ folder...\n")
+    print("🔍 Loading sections from SECTION_MAP...\n")
     sections = detect_sections()
 
     if not sections:
-        print("❌ No sections found. Make sure database/ contains .md files with matching folders in material_database/.")
+        print("❌ No sections found. Check SECTION_MAP at the top of this file.")
         return
 
     print(f"\n✅ Found {len(sections)} section(s): {[s['name'] for s in sections]}\n")
@@ -352,11 +352,11 @@ def run_all():
         print(f"\n{'='*50}")
         print(f"  Processing: {section['name']}")
         print(f"{'='*50}")
-        build_maps_for_section(section)
-        build_image_map(section)
-        copy_images(section)
-        generate_index_page(section)
-        generate_material_pages_for_section(section)
+        _build_maps(section)
+        _build_image_map(section)
+        _copy_images(section)
+        _generate_index_page(section)
+        _generate_material_pages(section)
 
     print("\n🎉 All sections processed!")
 
