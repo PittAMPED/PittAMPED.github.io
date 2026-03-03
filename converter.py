@@ -1,6 +1,5 @@
 # === Imports ===
 from pathlib import Path
-from urllib.parse import quote
 import markdown2
 import os
 import re
@@ -13,53 +12,107 @@ def slugify(text):
 # === Configuration Paths ===
 # Use __file__ so paths are always relative to THIS script,
 # regardless of how or from where the script is launched
-# (terminal, Obsidian hotkey, GUI, etc.)
 base = Path(__file__).resolve().parent
 
-input_dir = base / "material_database"
-output_dir = base / "public_database" / "lauren_public"
-output_dir.mkdir(parents=True, exist_ok=True)
+input_dir    = base / "material_database"
+database_dir = input_dir / "database"   # contains all _directory.md files
+output_root  = base / "public_database"
+template_dir = output_root              # material_template.html lives here
 
-material_root = input_dir / "lauren"
-material_output_root = output_dir / "nc_alloys"
-whitelist_path = base / "pages_to_publish.txt"
-material_template = base / "public_database" / "material_template.html"
+# Folders to always skip inside material_database/
+SKIP_FOLDERS = {"Template Alloy", "database"}
 
-# === Mappings ===
-folder_to_output = {
-    "database/lauren_directory.md": {
-        "template": base / "public_database" / "lauren_public" / "nc_template.html",
-        "filename": output_dir / "nc_index.html"
-    },
-    "deva": {
-        "template": base / "fm_template.html",
-        "filename": output_dir / "Ferromagneticealloy.html"
-    }
-}
 
+# === Auto-detect all sections from database/ folder ===
+def detect_sections():
+    """
+    Scans database/ for .md files. Each one maps to a material folder.
+    e.g. lauren_directory.md → material_database/lauren/
+    Returns a list of section dicts.
+    """
+    sections = []
+
+    if not database_dir.exists():
+        print(f"⚠ database/ folder not found at {database_dir}")
+        return sections
+
+    for md_file in sorted(database_dir.glob("*.md")):
+        if md_file.name.startswith(("_", ".")):
+            continue
+
+        # Strip _directory suffix to get the section name
+        stem = md_file.stem
+        name = re.sub(r"[_\-]directory$", "", stem, flags=re.IGNORECASE)
+
+        # Find matching folder in material_database/ (case-insensitive)
+        material_root = None
+        for folder in input_dir.iterdir():
+            if not folder.is_dir():
+                continue
+            if folder.name in SKIP_FOLDERS:
+                continue
+            if folder.name.lower() == name.lower():
+                material_root = folder
+                break
+
+        if material_root is None:
+            print(f"⚠ No matching material folder found for '{md_file.name}' (looked for '{name}') — skipping.")
+            continue
+
+        # Output paths for this section
+        section_output_dir = output_root / f"{name}_public"
+        section_output_dir.mkdir(parents=True, exist_ok=True)
+
+        sections.append({
+            "name":          name,
+            "directory_md":  md_file,
+            "material_root": material_root,
+            "output_dir":    section_output_dir,
+            "index_html":    section_output_dir / f"{name}_index.html",
+            "template_html": section_output_dir / "nc_template.html",
+            "material_tmpl": template_dir / "material_template.html",
+        })
+        print(f"📂 Detected section: '{name}' → {material_root.name}/ → {section_output_dir.name}/")
+
+    return sections
+
+
+# === Per-section maps (rebuilt for each section) ===
 wiki_link_map = {}
 html_file_map = {}
-image_map = {}
+image_map     = {}
 
-# === Step 1: Build Wiki Link Map ===
-for md_file in material_root.rglob("*.md"):
-    if md_file.name.startswith(("_", ".")):
-        continue
-    key = slugify(md_file.stem)
-    rel_path = md_file.relative_to(material_root).with_suffix(".html")
-    wiki_link_map[key] = rel_path
-    html_file_map[md_file] = rel_path
+
+def build_maps_for_section(section):
+    """Rebuild wiki/image maps for a given section."""
+    global wiki_link_map, html_file_map, image_map
+    wiki_link_map = {}
+    html_file_map = {}
+    image_map     = {}
+
+    material_root        = section["material_root"]
+
+    for md_file in material_root.rglob("*.md"):
+        if md_file.name.startswith(("_", ".")):
+            continue
+        key      = slugify(md_file.stem)
+        rel_path = md_file.relative_to(material_root).with_suffix(".html")
+        wiki_link_map[key] = rel_path
+        html_file_map[md_file] = rel_path
+
 
 # === Step 2: Build Image Map ===
-def build_image_map():
-    print("🔍 Building image database...")
+def build_image_map(section):
+    material_root = section["material_root"]
+
+    print(f"🔍 [{section['name']}] Building image database...")
     image_exts = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"]
 
     for md_file in material_root.rglob("*.md"):
         if md_file.name.startswith(("_", ".")):
             continue
         try:
-            content = md_file.read_text(encoding="utf-8")
+            content    = md_file.read_text(encoding="utf-8")
             image_refs = re.findall(r"!\[\[([^\]]+)\]\]", content)
 
             for image_ref in image_refs:
@@ -71,16 +124,15 @@ def build_image_map():
                     md_file.parent / "images",
                     md_file.parent / "Images",
                     md_file.parent / "1 images",
-                    md_file.parent / "1 Images"
+                    md_file.parent / "1 Images",
                 ]
-
                 parent_dir = md_file.parent
                 while parent_dir != material_root and parent_dir.parent != parent_dir:
                     search_locations.extend([
                         parent_dir / "images",
                         parent_dir / "Images",
                         parent_dir / "1 images",
-                        parent_dir / "1 Images"
+                        parent_dir / "1 Images",
                     ])
                     parent_dir = parent_dir.parent
 
@@ -104,31 +156,30 @@ def build_image_map():
                             break
 
                 if found_image:
-                    rel_path = found_image.relative_to(material_root)
+                    rel_path             = found_image.relative_to(material_root)
                     image_map[image_ref] = rel_path
-                    print(f"✅ Found image: {image_ref} -> {rel_path}")
+                    print(f"  ✅ Found image: {image_ref}")
                 else:
                     image_map[image_ref] = None
-                    print(f"❌ Image not found: {image_ref} in {md_file.relative_to(material_root)}")
+                    print(f"  ❌ Image not found: {image_ref}")
 
         except Exception as e:
-            print(f"❌ Error reading {md_file}: {e}")
+            print(f"  ❌ Error reading {md_file}: {e}")
 
     found   = sum(1 for v in image_map.values() if v is not None)
     missing = sum(1 for v in image_map.values() if v is None)
-    print(f"📊 Image database built: {found} found, {missing} missing")
+    print(f"  📊 Images: {found} found, {missing} missing")
 
 
-# === Step 3: Content Processing Functions ===
+# === Step 3: Content Processing ===
 def apply_publish_stop(content):
-    """Truncate content at PUBLISH STOP marker if present."""
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
     return content
 
 
-def process_markdown(content, current_md_path=None, is_index_page=False):
-    """Process markdown content: resolve wiki links and images, then render HTML."""
+def process_markdown(content, section, current_md_path=None, is_index_page=False):
+    material_output_root = section["output_dir"] / "alloys"
 
     def replace_wiki(m):
         raw_target  = m.group(1).strip()
@@ -140,7 +191,7 @@ def process_markdown(content, current_md_path=None, is_index_page=False):
             return f'<a href="#" style="color: red;">Link not found: {label}</a>'
 
         if is_index_page:
-            href = f"nc_alloys/{target_rel.as_posix()}"
+            href = f"alloys/{target_rel.as_posix()}"
         elif current_md_path and current_md_path in html_file_map:
             current_rel = html_file_map[current_md_path]
             href = os.path.relpath(
@@ -159,7 +210,7 @@ def process_markdown(content, current_md_path=None, is_index_page=False):
 
         rel_path = image_map[name]
         if is_index_page:
-            src = f"nc_alloys/{rel_path.as_posix()}"
+            src = f"alloys/{rel_path.as_posix()}"
         elif current_md_path and current_md_path in html_file_map:
             current_html = material_output_root / html_file_map[current_md_path]
             src = os.path.relpath(
@@ -180,8 +231,11 @@ def process_markdown(content, current_md_path=None, is_index_page=False):
 
 
 # === Step 4: Copy Images ===
-def copy_images():
-    print("\n📁 Copying images...")
+def copy_images(section):
+    material_root        = section["material_root"]
+    material_output_root = section["output_dir"] / "alloys"
+
+    print(f"\n📁 [{section['name']}] Copying images...")
     copied = 0
     for name, rel in image_map.items():
         if rel is None:
@@ -192,55 +246,51 @@ def copy_images():
         if not dst.exists() or src.stat().st_mtime > dst.stat().st_mtime:
             shutil.copy2(src, dst)
             copied += 1
-            print(f"✅ Copied: {rel}")
-    print(f"📊 Images copied: {copied}")
+            print(f"  ✅ Copied: {rel}")
+    print(f"  📊 Images copied: {copied}")
 
 
-# === Step 5: Generate Index Pages ===
-def generate_index_pages():
-    print("\n📄 Generating index/static pages...")
-    if not whitelist_path.exists():
-        print(f"⚠ Whitelist not found: {whitelist_path}")
+# === Step 5: Generate Index Page ===
+def generate_index_page(section):
+    print(f"\n📄 [{section['name']}] Generating index page...")
+
+    template_path = section["template_html"]
+    if not template_path.exists():
+        print(f"  ⚠ Template not found: {template_path} — skipping index page.")
         return
-    for line in whitelist_path.read_text(encoding="utf-8").splitlines():
-        item = line.strip().rstrip("/")
-        if not item or item.startswith("#") or item not in folder_to_output:
-            continue
-        path     = input_dir / item
-        out_info = folder_to_output[item]
-        md_blocks = []
 
-        if path.is_file():
-            content           = path.read_text(encoding="utf-8")
-            processed_content = apply_publish_stop(content)
-            md_blocks.append(process_markdown(processed_content, current_md_path=path, is_index_page=True))
-        elif path.is_dir():
-            for md_file in sorted(path.rglob("*.md")):
-                if md_file.name.startswith(("_", ".")):
-                    continue
-                content           = md_file.read_text(encoding="utf-8")
-                processed_content = apply_publish_stop(content)
-                md_blocks.append(process_markdown(processed_content, current_md_path=md_file, is_index_page=True))
+    md_file = section["directory_md"]
+    content = md_file.read_text(encoding="utf-8")
+    content = apply_publish_stop(content)
+    html    = process_markdown(content, section, current_md_path=md_file, is_index_page=True)
 
-        combined = "\n<hr/>\n".join(md_blocks)
-        template = out_info["template"].read_text()
-        out_info["filename"].write_text(
-            template.replace("<!-- CONTENT GOES HERE -->", combined),
-            encoding="utf-8"
-        )
-        print(f"✅ Created index: {out_info['filename'].relative_to(base)}")
+    template = template_path.read_text(encoding="utf-8")
+    section["index_html"].write_text(
+        template.replace("<!-- CONTENT GOES HERE -->", html),
+        encoding="utf-8"
+    )
+    print(f"  ✅ Created index: {section['index_html'].relative_to(base)}")
 
 
 # === Step 6: Generate Individual Material Pages ===
-def generate_material_pages():
-    print("\n📄 Generating individual material pages...")
-    if not material_template.exists():
-        print(f"⚠ Material template not found: {material_template}")
+def generate_material_pages_for_section(section):
+    material_root        = section["material_root"]
+    material_output_root = section["output_dir"] / "alloys"
+
+    print(f"\n📄 [{section['name']}] Generating material pages...")
+
+    template_path = section["material_tmpl"]
+    if not template_path.exists():
+        print(f"  ⚠ material_template.html not found at {template_path} — skipping.")
         return
-    template = material_template.read_text()
+    template = template_path.read_text(encoding="utf-8")
+
+    directory_stem = section["directory_md"].stem.lower()
 
     for md_file in sorted(material_root.rglob("*.md")):
-        if md_file.name.lower() == "lauren_directory.md" or md_file.name.startswith(("_", ".")):
+        if md_file.name.startswith(("_", ".")):
+            continue
+        if md_file.stem.lower() == directory_stem:
             continue
 
         slug     = slugify(md_file.stem)
@@ -249,9 +299,8 @@ def generate_material_pages():
 
         content           = md_file.read_text(encoding="utf-8")
         processed_content = apply_publish_stop(content)
-        html              = process_markdown(processed_content, current_md_path=md_file, is_index_page=False)
-
-        title = processed_content.strip().split("\n", 1)[0].lstrip("#").strip() or slug.replace("_", " ").title()
+        html              = process_markdown(processed_content, section, current_md_path=md_file, is_index_page=False)
+        title             = processed_content.strip().split("\n", 1)[0].lstrip("#").strip() or slug.replace("_", " ").title()
 
         final_html = (
             template
@@ -259,13 +308,58 @@ def generate_material_pages():
             .replace("<!-- TITLE GOES HERE -->", title)
         )
         out_file.write_text(final_html, encoding="utf-8")
-        print(f"✅ Created material page: {out_file.relative_to(base)}")
+        print(f"  ✅ Created: {out_file.relative_to(base)}")
+
+
+# === Functions exposed to GUI ===
+# The GUI calls these by name, so they must exist at module level.
+
+def build_image_map():
+    for section in detect_sections():
+        build_maps_for_section(section)
+        build_image_map(section)
+
+def copy_images_all():
+    for section in detect_sections():
+        build_maps_for_section(section)
+        build_image_map(section)
+        copy_images(section)
+
+def generate_index_pages():
+    for section in detect_sections():
+        build_maps_for_section(section)
+        generate_index_page(section)
+
+def generate_material_pages():
+    for section in detect_sections():
+        build_maps_for_section(section)
+        build_image_map(section)
+        generate_material_pages_for_section(section)
 
 
 # === Main Execution ===
+def run_all():
+    print("🔍 Detecting sections from database/ folder...\n")
+    sections = detect_sections()
+
+    if not sections:
+        print("❌ No sections found. Make sure database/ contains .md files with matching folders in material_database/.")
+        return
+
+    print(f"\n✅ Found {len(sections)} section(s): {[s['name'] for s in sections]}\n")
+
+    for section in sections:
+        print(f"\n{'='*50}")
+        print(f"  Processing: {section['name']}")
+        print(f"{'='*50}")
+        build_maps_for_section(section)
+        build_image_map(section)
+        copy_images(section)
+        generate_index_page(section)
+        generate_material_pages_for_section(section)
+
+    print("\n🎉 All sections processed!")
+
+
 if __name__ == "__main__":
-    build_image_map()
-    copy_images()
-    generate_index_pages()
-    generate_material_pages()
-    print("\n🎉 Processing complete!")
+    run_all()
