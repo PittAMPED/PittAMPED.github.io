@@ -10,8 +10,8 @@ import shutil
 # =============================================================================
 
 SECTION_MAP = {
-    "nanocrystalline": "nanocrystalline",   # nanocrystalline_directory.md → nanocrystalline/
-    "ferrites":        "ferrites",           # ferrites_directory.md        → ferrites/
+    "nanocrystalline": "nanocrystalline",
+    "ferrites":        "ferrites",
     # Add new sections here as you create them:
     # "my_new_section": "my_new_folder",
 }
@@ -25,6 +25,10 @@ SKIP_FOLDERS = {"Template Alloy", "database"}
 def slugify(text):
     return re.sub(r"[^\w\-]", "", text.strip().replace(" ", ""))
 
+def relative_root(from_file, root):
+    """Calculate the relative path from a file back to the website root."""
+    return os.path.relpath(root, start=from_file.parent).replace("\\", "/")
+
 # === Configuration Paths ===
 base = Path(__file__).resolve().parent
 
@@ -32,6 +36,7 @@ input_dir    = base / "material_database"
 database_dir = input_dir / "database"
 output_root  = base / "public_database"
 template_dir = output_root
+website_root = base  # root of the website (where index.html lives)
 
 
 # === Auto-detect all sections ===
@@ -56,21 +61,13 @@ def detect_sections():
         section_output_dir = output_root / f"{section_key}_public"
         section_output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Auto-create nc_template.html if missing
-        template_html = section_output_dir / "nc_template.html"
-        master_template = template_dir / "material_template.html"
-        if not template_html.exists() and master_template.exists():
-            shutil.copy2(master_template, template_html)
-            print(f"  📋 Created missing nc_template.html for '{section_key}'")
-
         sections.append({
             "name":          section_key,
             "directory_md":  md_file,
             "material_root": material_root,
             "output_dir":    section_output_dir,
             "index_html":    section_output_dir / f"{section_key}_index.html",
-            "template_html": template_html,
-            "material_tmpl": master_template,
+            "material_tmpl": template_dir / "material_template.html",
         })
         print(f"📂 Section: '{section_key}' → material_database/{folder_name}/ → {section_output_dir.name}/")
 
@@ -109,12 +106,10 @@ def _build_image_map(section):
     print(f"🔍 [{section['name']}] Building image database...")
 
     # Build a flat map of ALL images anywhere under material_root
-    # filename → full path (last one wins if duplicates)
     all_images = {}
     for img_path in material_root.rglob("*"):
         if img_path.is_file() and img_path.suffix.lower() in image_exts:
             all_images[img_path.name] = img_path
-            # Also index without extension for obsidian-style refs
             all_images[img_path.stem] = img_path
 
     for md_file in material_root.rglob("*.md"):
@@ -128,33 +123,9 @@ def _build_image_map(section):
                 if image_ref in image_map:
                     continue
 
-                # First try exact filename match in flat map
                 found_image = all_images.get(image_ref)
-
-                # Then try without extension
                 if not found_image:
                     found_image = all_images.get(image_ref.rsplit(".", 1)[0] if "." in image_ref else image_ref)
-
-                # Fallback: search all subdirs of the alloy's numbered folder
-                if not found_image:
-                    search_root = md_file.parent
-                    for loc in [search_root] + list(search_root.rglob("*")):
-                        if not hasattr(loc, 'is_dir') or not loc.is_dir():
-                            continue
-                        # Try exact name
-                        test = loc / image_ref
-                        if test.exists():
-                            found_image = test
-                            break
-                        # Try with each extension
-                        if "." not in image_ref:
-                            for ext in image_exts:
-                                test = loc / f"{image_ref}{ext}"
-                                if test.exists():
-                                    found_image = test
-                                    break
-                        if found_image:
-                            break
 
                 if found_image:
                     image_map[image_ref] = found_image.relative_to(material_root)
@@ -176,6 +147,13 @@ def apply_publish_stop(content):
     if "<!-- PUBLISH STOP -->" in content:
         content = content.split("<!-- PUBLISH STOP -->", 1)[0].strip()
     return content
+
+
+def inject_root_path(template, output_file):
+    """Replace all ../ chains with the correct relative path to website root."""
+    root_rel = relative_root(output_file, website_root)
+    # Replace the placeholder or any existing ../../../../ style paths
+    return re.sub(r'(\.\./)+', lambda m: root_rel + "/", template)
 
 
 def process_markdown(content, section, current_md_path=None, is_index_page=False):
@@ -252,20 +230,21 @@ def _copy_images(section):
 def _generate_index_page(section):
     print(f"\n📄 [{section['name']}] Generating index page...")
 
-    template_path = section["template_html"]
+    template_path = section["material_tmpl"]
     if not template_path.exists():
-        print(f"  ⚠ Template not found: {template_path} — skipping.")
+        print(f"  ⚠ material_template.html not found — skipping.")
         return
 
-    md_file = section["directory_md"]
-    content = apply_publish_stop(md_file.read_text(encoding="utf-8"))
-    html    = process_markdown(content, section, current_md_path=md_file, is_index_page=True)
-
+    md_file  = section["directory_md"]
+    content  = apply_publish_stop(md_file.read_text(encoding="utf-8"))
+    html     = process_markdown(content, section, current_md_path=md_file, is_index_page=True)
     template = template_path.read_text(encoding="utf-8")
-    section["index_html"].write_text(
-        template.replace("<!-- CONTENT GOES HERE -->", html),
-        encoding="utf-8"
-    )
+
+    # Inject correct relative paths for this output file
+    final = inject_root_path(template, section["index_html"])
+    final = final.replace("<!-- CONTENT GOES HERE -->", html)
+
+    section["index_html"].write_text(final, encoding="utf-8")
     print(f"  ✅ Created index: {section['index_html'].relative_to(base)}")
 
 
@@ -298,12 +277,12 @@ def _generate_material_pages(section):
         html              = process_markdown(processed_content, section, current_md_path=md_file, is_index_page=False)
         title             = processed_content.strip().split("\n", 1)[0].lstrip("#").strip() or slug.replace("_", " ").title()
 
-        out_file.write_text(
-            template
-            .replace("<!-- CONTENT GOES HERE -->", html)
-            .replace("<!-- TITLE GOES HERE -->", title),
-            encoding="utf-8"
-        )
+        # Inject correct relative paths for this specific output file
+        final = inject_root_path(template, out_file)
+        final = final.replace("<!-- CONTENT GOES HERE -->", html)
+        final = final.replace("<!-- TITLE GOES HERE -->", title)
+
+        out_file.write_text(final, encoding="utf-8")
         print(f"  ✅ Created: {out_file.relative_to(base)}")
 
 
