@@ -96,4 +96,4 @@ hello
 | Co72Fe8B8Ta12                        | [[92Alloy\|🔗]] |
 | Co75Fe5B7Ta13                        | [[93Alloy\|🔗]] |
 | Co72Fe8Si2B6Ta12                     | [[94Alloy\|🔗]] |
-| Co73Fe7Si2B7Ta11                     | [[lauren/HOTG11/95/95Alloy\|🔗]] |
+| Co73Fe7Si2B7Ta11                     | [[95Alloy\|🔗]] |
