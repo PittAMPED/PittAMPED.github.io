@@ -9,10 +9,6 @@ import shutil
 # CONFIGURATION — edit this section when you rename folders
 # =============================================================================
 
-# Maps directory .md filename (without _directory suffix) → material folder name
-# Example: "lauren" means lauren_directory.md → maps to the folder below
-# Change the RIGHT side to match your actual folder name in material_database/
-# Change the LEFT side to match your actual _directory.md filename in database/
 SECTION_MAP = {
     "nanocrystalline": "nanocrystalline",   # nanocrystalline_directory.md → nanocrystalline/
     "ferrites":        "ferrites",           # ferrites_directory.md        → ferrites/
@@ -24,7 +20,6 @@ SECTION_MAP = {
 SKIP_FOLDERS = {"Template Alloy", "database"}
 
 # =============================================================================
-
 
 # === Helpers ===
 def slugify(text):
@@ -41,10 +36,6 @@ template_dir = output_root
 
 # === Auto-detect all sections ===
 def detect_sections():
-    """
-    Uses SECTION_MAP to find directory .md files and their matching folders.
-    To rename something: update SECTION_MAP at the top of this file.
-    """
     sections = []
 
     if not database_dir.exists():
@@ -52,21 +43,25 @@ def detect_sections():
         return sections
 
     for section_key, folder_name in SECTION_MAP.items():
-        # Look for the directory .md file
         md_file = database_dir / f"{section_key}_directory.md"
         if not md_file.exists():
             print(f"⚠ Directory file not found: {md_file.name} — skipping '{section_key}'.")
             continue
 
-        # Look for the matching material folder
         material_root = input_dir / folder_name
         if not material_root.exists() or not material_root.is_dir():
             print(f"⚠ Material folder not found: material_database/{folder_name}/ — skipping '{section_key}'.")
             continue
 
-        # Output paths
         section_output_dir = output_root / f"{section_key}_public"
         section_output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Auto-create nc_template.html if missing
+        template_html = section_output_dir / "nc_template.html"
+        master_template = template_dir / "material_template.html"
+        if not template_html.exists() and master_template.exists():
+            shutil.copy2(master_template, template_html)
+            print(f"  📋 Created missing nc_template.html for '{section_key}'")
 
         sections.append({
             "name":          section_key,
@@ -74,8 +69,8 @@ def detect_sections():
             "material_root": material_root,
             "output_dir":    section_output_dir,
             "index_html":    section_output_dir / f"{section_key}_index.html",
-            "template_html": section_output_dir / "nc_template.html",
-            "material_tmpl": template_dir / "material_template.html",
+            "template_html": template_html,
+            "material_tmpl": master_template,
         })
         print(f"📂 Section: '{section_key}' → material_database/{folder_name}/ → {section_output_dir.name}/")
 
@@ -104,10 +99,23 @@ def _build_maps(section):
 
 
 def _build_image_map(section):
+    """Scan markdown files and locate all referenced images.
+    Searches ALL subfolders recursively so any folder naming works:
+    1Images, 1 Images, 30Images, 3 Images, etc.
+    """
     material_root = section["material_root"]
     image_exts    = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"]
 
     print(f"🔍 [{section['name']}] Building image database...")
+
+    # Build a flat map of ALL images anywhere under material_root
+    # filename → full path (last one wins if duplicates)
+    all_images = {}
+    for img_path in material_root.rglob("*"):
+        if img_path.is_file() and img_path.suffix.lower() in image_exts:
+            all_images[img_path.name] = img_path
+            # Also index without extension for obsidian-style refs
+            all_images[img_path.stem] = img_path
 
     for md_file in material_root.rglob("*.md"):
         if md_file.name.startswith(("_", ".")):
@@ -120,40 +128,32 @@ def _build_image_map(section):
                 if image_ref in image_map:
                     continue
 
-                search_locations = [
-                    md_file.parent,
-                    md_file.parent / "images",
-                    md_file.parent / "Images",
-                    md_file.parent / "1 images",
-                    md_file.parent / "1 Images",
-                ]
-                parent_dir = md_file.parent
-                while parent_dir != material_root and parent_dir.parent != parent_dir:
-                    search_locations.extend([
-                        parent_dir / "images",
-                        parent_dir / "Images",
-                        parent_dir / "1 images",
-                        parent_dir / "1 Images",
-                    ])
-                    parent_dir = parent_dir.parent
+                # First try exact filename match in flat map
+                found_image = all_images.get(image_ref)
 
-                found_image = None
-                if not any(image_ref.lower().endswith(ext) for ext in image_exts):
-                    for loc in search_locations:
-                        if not loc.exists():
+                # Then try without extension
+                if not found_image:
+                    found_image = all_images.get(image_ref.rsplit(".", 1)[0] if "." in image_ref else image_ref)
+
+                # Fallback: search all subdirs of the alloy's numbered folder
+                if not found_image:
+                    search_root = md_file.parent
+                    for loc in [search_root] + list(search_root.rglob("*")):
+                        if not hasattr(loc, 'is_dir') or not loc.is_dir():
                             continue
-                        for ext in image_exts:
-                            test = loc / f"{image_ref}{ext}"
-                            if test.exists():
-                                found_image = test
-                                break
-                        if found_image:
-                            break
-                else:
-                    for loc in search_locations:
+                        # Try exact name
                         test = loc / image_ref
                         if test.exists():
                             found_image = test
+                            break
+                        # Try with each extension
+                        if "." not in image_ref:
+                            for ext in image_exts:
+                                test = loc / f"{image_ref}{ext}"
+                                if test.exists():
+                                    found_image = test
+                                    break
+                        if found_image:
                             break
 
                 if found_image:
