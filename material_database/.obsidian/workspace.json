@@ -8,35 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ba90a50384528be8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Test folder/Index Page.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Index Page"
-            }
-          },
-          {
             "id": "a7c647fffdc78423",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "nanocrystalline/HOTG5/30/30VSM.md",
+                "file": "nanocrystalline/HOTG1/1/1Alloy.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "30VSM"
+              "title": "1Alloy"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -186,8 +171,23 @@
       "obsidian-shellcommands:Shell commands: Custom variables": false
     }
   },
-  "active": "a7c647fffdc78423",
+  "active": "499c4b3cfbc2acbd",
   "lastOpenFiles": [
+    "database/Test folder main.md",
+    "nanocrystalline/HOTG1/1/1Alloy.md",
+    "database/nanocrystalline_directory.md",
+    "Untitled.md",
+    "Untitled",
+    "database/ferrites_directory.md",
+    "Untitled 2.base",
+    "Untitled 1.canvas",
+    "Untitled 1.base",
+    "Untitled.canvas",
+    "Untitled.base",
+    "ferrites_directory/composition 1/composition 1 basic data.md",
+    "nanocrystalline/HOTG1/1/1DSC.md",
+    "nanocrystalline/HOTG1/1/1Images/Pasted image 20250728031413.png",
+    "nanocrystalline/HOTG5/30/30VSM.md",
     "nanocrystalline/HOTG5/30/30StressAnnealing.md",
     "nanocrystalline/HOTG5/30/30Mechanical.md",
     "nanocrystalline/HOTG5/30/30DSC.md",
@@ -208,33 +208,17 @@
     "nanocrystalline/HOTG6/32/32 Images/Pasted image 20250618214143.png",
     "nanocrystalline/HOTG9/72/72DSC.md",
     "nanocrystalline/HOTG9/72/72Alloy.md",
-    "nanocrystalline/HOTG1/1/1DSC.md",
-    "nanocrystalline/HOTG1/1/1Alloy.md",
     "nanocrystalline/HOTG1/1/1Mechanical.md",
-    "nanocrystalline/HOTG1/1/1Images/Pasted image 20250728031413.png",
-    "database/nanocrystalline_directory.md",
-    "database/ferrites_directory.md",
     "Test folder.md",
-    "database/Test folder main.md",
     "Test folder/Index Page.md",
     "nanocrystalline/HOTG1/3/3Mechanical.md",
     "Test folder",
     "nanocrystalline/HOTG1/3/3StressAnnealing.md",
     "nanocrystalline/HOTG1/3/3VSM.md",
-    "nanocrystalline/HOTG4/22/22DSC.md",
-    "nanocrystalline/HOTG4/22/22Alloy.md",
-    "nanocrystalline/HOTG4/23/23Mechanical.md",
-    "nanocrystalline/HOTG4/23/23StressAnnealing.md",
     "nanocrystalline/Images",
     "nanocrystalline/How data collect",
     "nanocrystalline/HOTG9/78",
     "nanocrystalline/HOTG9/77",
-    "nanocrystalline/HOTG9/76",
-    "nanocrystalline/HOTG9/75",
-    "nanocrystalline/HOTG9/74",
-    "nanocrystalline/HOTG9/73",
-    "nanocrystalline/HOTG9/72",
-    "Untitled.canvas",
-    "Untitled 1.canvas"
+    "nanocrystalline/HOTG9/76"
   ]
 }
